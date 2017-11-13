@@ -57,7 +57,7 @@ public class Unit {
 		double d = Driver.dist(x,y,x2,y2);
 		double diffX = (x2-x)/d;
 		double diffY = (y2-y)/d;
-		moveAnim = new Timeline(new KeyFrame(Duration.millis(10), e->{
+		moveAnim = new Timeline(new KeyFrame(Duration.millis(5), e->{
 			move(x+diffX,y+diffY);
 		}));
 		moveAnim.setCycleCount((int)d);
