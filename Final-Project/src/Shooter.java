@@ -3,6 +3,7 @@ import javafx.scene.shape.Circle;
 
 public class Shooter extends GameUnit {
 	public Shooter(double radius) {
+		length = radius;
 		color = Color.RED;
 		shape = new Circle(radius);
 		shape.setFill(color);

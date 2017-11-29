@@ -4,6 +4,7 @@ import javafx.scene.shape.Circle;
 public class Chaser extends GameUnit{
 
 	public Chaser(double radius) {
+		length = radius;
 		color = Color.BLUE;
 		shape = new Circle(radius);
 		shape.setFill(color);

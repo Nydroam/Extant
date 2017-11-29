@@ -14,7 +14,6 @@ public class Driver extends Application {
 	public void start(Stage primaryStage) {
 		
 		//Making the Application FullScreen
-		primaryStage.setResizable(false);
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
 		primaryStage.setScene(scene);
@@ -23,8 +22,7 @@ public class Driver extends Application {
 		//Need to show to get width and height
 		width = primaryStage.getWidth();
 		height = primaryStage.getHeight();
-		setupFields();
-		
+		manage = new GameScreenManager(width,height,scene);
 		//BEGIN
 		manage.setState(ScreenManager.MENU_STATE);
 	
@@ -33,10 +31,4 @@ public class Driver extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	public void setupFields() {
-		manage = new GameScreenManager(width,height,scene);
-	}
-	
-
 }

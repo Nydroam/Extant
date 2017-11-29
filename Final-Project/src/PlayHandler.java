@@ -58,11 +58,18 @@ public class PlayHandler {
 	}
 	
 	public void play() {
+		//Removing Screen Instruction Text
 		screen.getPane().getChildren().remove(0);
+		
+		//Setting up selection box
 		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
 		screen.getPane().getChildren().add(selectionBox.getBox());
 		selectionBox.setBoxEvents();
+		
+		//removing preparation mechanic
 		screen.getScene().setOnMouseClicked(null);
 		
+		MovementHandler m= new MovementHandler(unitHandler, screen.getScene());
+		m.prepareAnimations();
 	}
 }

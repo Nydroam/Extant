@@ -11,8 +11,8 @@ public class GameScreenManager extends ScreenManager {
 	
 	public GameScreenManager(double w, double h, Scene s) {
 		super(w, h, s);
-		numChasers = 3;
-		numShooters = 3;
+		numChasers = 10;
+		numShooters = 10;
 	}
 
 	public Screen setHelp() {
