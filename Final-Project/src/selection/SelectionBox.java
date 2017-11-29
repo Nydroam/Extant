@@ -16,6 +16,7 @@ public class SelectionBox {
 	public SelectionBox(Scene s) {
 		selectionBox = new Rectangle();
 		selectionBox.setFill(Color.TRANSPARENT);
+		selectionBox.setMouseTransparent(true);
 		scene = s;
 	}
 
@@ -43,11 +44,7 @@ public class SelectionBox {
 
 	public void onMouseDraggedHandler(MouseEvent e) {
 		if (e.getButton() == MouseButton.PRIMARY) {
-			try {
-				Thread.sleep(15);
-			}catch(InterruptedException ev) {
-				ev.printStackTrace();
-			}
+			
 			selectionBox.setStroke(Color.BLACK);
 			if (e.getX() - boxX < 0) {
 				selectionBox.setWidth(boxX - e.getX());

@@ -17,6 +17,10 @@ public class GameUnit extends Unit{
 		highlight.setLayoutY(y);
 	}
 	
+	public boolean isSelected() {
+		return selected;
+	}
+	
 	public void toggleSelect() {
 		if(selected) {
 			selected = false;

@@ -12,6 +12,13 @@ public class Unit {
 	public Unit() {
 	}
 	
+	public double getX() {
+		return xPos;
+	}
+	public double getY() {
+		return yPos;
+	}
+	
 	public Shape getShape() {
 		return shape;
 	}
@@ -28,6 +35,8 @@ public class Unit {
 	}
 	
 	public void move(double x, double y) {
+		xPos = x;
+		yPos = y;
 		shape.setLayoutX(x);
 		shape.setLayoutY(y);
 	}

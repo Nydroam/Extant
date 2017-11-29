@@ -43,12 +43,12 @@ public class PlayHandler {
 		u.move((i+1)*screen.getWidth()/(numChasers+1),screen.getHeight()/3*j);
 		unitHandler.addUnit(UnitHandler.PLAYER,u);
 		
-		u.getShape().setOnMouseClicked( e -> prepareClickHandler(e,u));
+		u.getShape().setOnMouseClicked( e -> unitClickHandler(e,u));
 		
 		screen.addNode(u.getShape());
 		screen.addNode(u.getHighlight());
 	}
-	public void prepareClickHandler(MouseEvent e, GameUnit u) {
+	public void unitClickHandler(MouseEvent e, GameUnit u) {
 		
 		if( e.getButton() == MouseButton.PRIMARY) {
 			unitHandler.clearUnits(UnitHandler.SELECTED);
@@ -59,8 +59,10 @@ public class PlayHandler {
 	
 	public void play() {
 		screen.getPane().getChildren().remove(0);
-		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene());
+		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
 		screen.getPane().getChildren().add(selectionBox.getBox());
 		selectionBox.setBoxEvents();
+		screen.getScene().setOnMouseClicked(null);
+		
 	}
 }
