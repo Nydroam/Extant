@@ -1,5 +1,6 @@
 package screen;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -12,12 +13,16 @@ public class Screen {
 	
 	private Scene screenScene;
 	private Pane screenPane;
+	private double width;
+	private double height;
 	
 	//Sets up a default Screen
 	public Screen(Scene scene) {
 		screenScene = scene;
 		screenPane = new Pane();
 		scene.setRoot(screenPane);
+		width = scene.getWidth();
+		height = scene.getHeight();
 	}
 	
 	//Accessors BEGIN
@@ -27,6 +32,14 @@ public class Screen {
 	
 	public Pane getPane() {
 		return screenPane;
+	}
+	
+	public double getWidth() {
+		return width;
+	}
+	
+	public double getHeight() {
+		return height;
 	}
 	//Accessors END
 	
@@ -70,5 +83,9 @@ public class Screen {
 	}
 	public void addText(Text t) {
 		screenPane.getChildren().add(t);
+	}
+	
+	public void addNode(Node n) {
+		screenPane.getChildren().add(n);
 	}
 }

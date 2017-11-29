@@ -54,7 +54,7 @@ public class GameScreenManager extends ScreenManager {
 	
 	public Screen setPlay() {
 		Screen s = super.setPlay();
-		PlayHandler handler = new PlayHandler(s);
+		PlayHandler handler = new PlayHandler(s, numChasers, numShooters);
 		handler.prepare();
 		return s;
 
