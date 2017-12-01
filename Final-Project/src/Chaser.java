@@ -8,8 +8,8 @@ public class Chaser extends PlayerUnit{
 		color = Color.BLUE;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
-		
 		speed = 4;
+		
 		setup();
 		
 	}

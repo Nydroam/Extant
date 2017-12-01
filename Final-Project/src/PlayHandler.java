@@ -62,10 +62,10 @@ public class PlayHandler {
 			
 			screen.addNode(u.getShape());
 			screen.addNode(u.getHighlight());
-			if(u.getAttackRange()!=null)
+			if(u.canAttack()) {
 				screen.addNode(u.getAttackRange());
-			if(u.getAttackLine()!=null)
 				screen.addNode(u.getAttackLine());
+			}
 		
 	}
 	public void unitClickHandler(MouseEvent e, PlayerUnit u) {
@@ -90,17 +90,14 @@ public class PlayHandler {
 		//removing preparation mechanic
 		screen.getScene().setOnMouseClicked(null);
 		
-		//setting player movement
-		MovementHandler m= new MovementHandler(unitHandler, screen.getScene());
-		m.prepareAnimations();
-		
 		//starting spawn
 		Enemy e = new Enemy(screen.getHeight()/50);
 		e.move(screen.getWidth()/2-e.getRadius(),screen.getHeight()/2-e.getRadius());
 		unitHandler.addUnit(UnitHandler.ENEMY, e);
 		screen.addNode(e.getShape());
 		
-		AttackHandler a = new AttackHandler(unitHandler, screen.getScene());
-		a.prepareAnimations();
+		//setting player unit attacking and moving
+		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen.getScene());
+		h.prepareAnimations();
 	}
 }

@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
@@ -18,6 +19,12 @@ public class PlayerUnit extends GameUnit {
 		highlight.setMouseTransparent(true);
 		selected = true;
 		toggleSelect();
+	}
+	
+	public void move(double x, double y) {
+		super.move(x, y);
+		highlight.setLayoutX(x);
+		highlight.setLayoutY(y);
 	}
 	
 	//accessors
@@ -49,4 +56,32 @@ public class PlayerUnit extends GameUnit {
 		vertical = v;
 		magnitude = m;
 	}
+	
+	public void setMoveAnimation(double width, double height) {
+		moveAnim = new AnimationTimer() {
+			int i = 0;
+			public void handle(long now) {
+				if(i==1) {
+				if(vertical) {
+					move(xPos, yPos+magnitude);
+				}
+				else {
+					move(xPos+magnitude, yPos);
+				}
+				if(xPos+radius>width||xPos-radius<0||yPos+radius>=height||yPos-radius<=0) {
+					setDirection(vertical,-1*magnitude);
+					if(vertical) {
+						move(xPos, yPos+magnitude);
+					}
+					else {
+						move(xPos+magnitude, yPos);
+					}
+				}
+				i = 0;
+				}
+				i++;
+			}
+		};
+	}
+	
 }

@@ -14,6 +14,7 @@ public class GameUnit extends Unit {
 	protected int speed;
 	protected AnimationTimer moveAnim;
 	protected AnimationTimer attackAnim;
+	protected boolean canAttack;
 	
 	// Attack
 	protected GameUnit target;
@@ -23,9 +24,13 @@ public class GameUnit extends Unit {
 	// setup
 	public void setup() {
 		shape.setFill(color);
+		canAttack = false;
 	}
 
 	// Accessors
+	public boolean canAttack() {
+		return canAttack;
+	}
 	public Circle getAttackRange() {
 		return attackRange;
 	}
@@ -50,26 +55,26 @@ public class GameUnit extends Unit {
 	// Movement
 	public void move(double x, double y) {
 		super.move(x, y);
+		if(canAttack) {
+			attackRange.setLayoutX(x);
+			attackRange.setLayoutY(y);
+		}
 	}
 	
 	//Animation
-	public void setMoveAnimation(AnimationTimer t) {
-		moveAnim = t;
-	}
+
 	public void startMoveAnimation() {
 		moveAnim.start();
 	}
 	public void stopMoveAnimation() {
 		moveAnim.stop();
 	}
-	public void setAttackAnimation(AnimationTimer t) {
-		moveAnim = t;
-	}
+	
 	public void startAttackAnimation() {
-		moveAnim.start();
+		attackAnim.start();
 	}
 	public void stopAttackAnimation() {
-		moveAnim.stop();
+		attackAnim.stop();
 	}
 
 }
