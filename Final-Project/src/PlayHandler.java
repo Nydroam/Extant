@@ -91,11 +91,12 @@ public class PlayHandler {
 		screen.getScene().setOnMouseClicked(null);
 		
 		//starting spawn
+		for(int i = 0; i < 50;i++) {
 		Enemy e = new Enemy(screen.getHeight()/50);
-		e.move(screen.getWidth()/2-e.getRadius(),screen.getHeight()/2-e.getRadius());
+		e.move(Math.random()*screen.getWidth()*3/4,Math.random()*screen.getHeight()*3/4);
 		unitHandler.addUnit(UnitHandler.ENEMY, e);
 		screen.addNode(e.getShape());
-		
+		}
 		//setting player unit attacking and moving
 		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen.getScene());
 		h.prepareAnimations();

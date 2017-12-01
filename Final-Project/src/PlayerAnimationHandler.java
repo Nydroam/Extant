@@ -18,9 +18,7 @@ public class PlayerAnimationHandler {
 			u.startMoveAnimation();
 			if (u instanceof AttackUnit) {
 				AttackUnit atk = (AttackUnit) u;
-
-				unitHandler.getSet(UnitHandler.ENEMY).stream().forEach(t -> u.setTarget(t));
-				atk.setAttackAnimation();
+				atk.setAttackAnimation(unitHandler);
 				u.startAttackAnimation();
 			}
 		});
@@ -34,13 +32,13 @@ public class PlayerAnimationHandler {
 		if (u.isSelected()) {
 			KeyCode key = e.getCode();
 			if (key == KeyCode.W)
-				u.setDirection(true, -1 * Math.abs(u.getS()));
+				u.setDirection(true, -1 * u.getS());
 			if (key == KeyCode.A)
-				u.setDirection(false, -1 * Math.abs(u.getS()));
+				u.setDirection(false, -1 * u.getS());
 			if (key == KeyCode.S)
-				u.setDirection(true, Math.abs(u.getS()));
+				u.setDirection(true,u.getS());
 			if (key == KeyCode.D)
-				u.setDirection(false, Math.abs(u.getS()));
+				u.setDirection(false, u.getS());
 			if (key == KeyCode.SPACE)
 				u.setDirection(false, 0);
 		}

@@ -2,9 +2,9 @@ import java.util.HashSet;
 
 public class UnitHandler {
 	
-	HashSet<PlayerUnit> playerUnits;
+	HashSet<GameUnit> playerUnits;
 	HashSet<GameUnit> enemyUnits;
-	HashSet<PlayerUnit> selectedUnits;
+	HashSet<GameUnit> selectedUnits;
 	
 	public static final int PLAYER = 0;
 	public static final int ENEMY = 1;
@@ -16,7 +16,7 @@ public class UnitHandler {
 		selectedUnits = new HashSet<>();
 	}
 	
-	public HashSet<? extends GameUnit> getSet(int i){
+	public HashSet<GameUnit> getSet(int i){
 		switch(i) {
 			case PLAYER:
 				return playerUnits;
@@ -65,7 +65,7 @@ public class UnitHandler {
 				enemyUnits = new HashSet<>();
 				break;
 			case SELECTED:
-				selectedUnits.stream().forEach(u -> u.toggleSelect());
+				selectedUnits.stream().forEach(u -> ((PlayerUnit)u).toggleSelect());
 				selectedUnits = new HashSet<>();
 				break;
 		}
