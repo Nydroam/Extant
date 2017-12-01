@@ -27,32 +27,53 @@ public class PlayHandler {
 				unitHandler.getSet(UnitHandler.SELECTED).stream().forEach(u->u.move(e.getX(),e.getY()));
 		});
 		
-		//add chasers
-		for(int i = 0; i < numChasers; i++) {
-			GameUnit u = new Chaser(screen.getHeight()/25);
-			addUnit(u,i,1);
-		}
-		//add shooters
-		for(int i = 0; i < numShooters; i++) {
-			GameUnit u = new Shooter(screen.getHeight()/25);
-			addUnit(u,i,2);
-		}
+		addUnits(PlayerUnit.CHASER);
+		addUnits(PlayerUnit.SHOOTER);
 	}
 	
-	public void addUnit(GameUnit u, int i, int j) {
-		u.move((i+1)*screen.getWidth()/(numChasers+1),screen.getHeight()/3*j);
-		unitHandler.addUnit(UnitHandler.PLAYER,u);
+	public void addUnits(int type) {
+		int numUnits = 0;
+		PlayerUnit u = null;
+		switch(type){
+			case PlayerUnit.CHASER:
+				numUnits = numChasers;
+				for(int i = 0; i < numUnits; i++) {
+					u = new Chaser(screen.getHeight()/25);
+					addUnit(u,i,numUnits,type);
+				}
+				break;
+			case PlayerUnit.SHOOTER:
+				numUnits = numShooters;
+				for(int i = 0; i < numUnits; i++) {
+				u = new Shooter(screen.getHeight()/25);
+				addUnit(u,i,numUnits,type);
+				}
+				break;
+		}
 		
-		u.getShape().setOnMouseClicked( e -> unitClickHandler(e,u));
-		
-		screen.addNode(u.getShape());
-		screen.addNode(u.getHighlight());
 	}
-	public void unitClickHandler(MouseEvent e, GameUnit u) {
+	
+	public void addUnit(PlayerUnit u,int i, int numUnits, int type) {
+		
+			u.move((i+1)*screen.getWidth()/(numUnits+1),screen.getHeight()/3*(type+1));
+			unitHandler.addUnit(UnitHandler.PLAYER,u);
+			
+			u.getShape().setOnMouseClicked( e -> unitClickHandler(e,u));
+			
+			screen.addNode(u.getShape());
+			screen.addNode(u.getHighlight());
+			if(u.getAttackRange()!=null)
+				screen.addNode(u.getAttackRange());
+			if(u.getAttackLine()!=null)
+				screen.addNode(u.getAttackLine());
+		
+	}
+	public void unitClickHandler(MouseEvent e, PlayerUnit u) {
 		
 		if( e.getButton() == MouseButton.PRIMARY) {
 			unitHandler.clearUnits(UnitHandler.SELECTED);
 			unitHandler.addUnit(UnitHandler.SELECTED, u);
+			
 			
 		}
 	}
@@ -69,7 +90,17 @@ public class PlayHandler {
 		//removing preparation mechanic
 		screen.getScene().setOnMouseClicked(null);
 		
+		//setting player movement
 		MovementHandler m= new MovementHandler(unitHandler, screen.getScene());
 		m.prepareAnimations();
+		
+		//starting spawn
+		Enemy e = new Enemy(screen.getHeight()/50);
+		e.move(screen.getWidth()/2-e.getRadius(),screen.getHeight()/2-e.getRadius());
+		unitHandler.addUnit(UnitHandler.ENEMY, e);
+		screen.addNode(e.getShape());
+		
+		AttackHandler a = new AttackHandler(unitHandler, screen.getScene());
+		a.prepareAnimations();
 	}
 }

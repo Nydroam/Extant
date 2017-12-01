@@ -1,57 +1,75 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import unit.Unit;
 
-public class GameUnit extends Unit{
-	protected Shape highlight;
+public class GameUnit extends Unit {
+
+	// Visuals of Unit
+	
 	protected Color color;
-	protected boolean selected;
-	protected boolean vertical;
-	protected int magnitude;
-	protected double length;
+	protected double radius;
+
+	protected int speed;
+	protected AnimationTimer moveAnim;
+	protected AnimationTimer attackAnim;
 	
-	public GameUnit() {
-		setDirection(true,0);
+	// Attack
+	protected GameUnit target;
+	protected Line attackLine;
+	protected Circle attackRange;
+
+	// setup
+	public void setup() {
+		shape.setFill(color);
 	}
-	public Shape getHighlight() {
-		return highlight;
+
+	// Accessors
+	public Circle getAttackRange() {
+		return attackRange;
 	}
-	
-	public void setDirection(boolean v, int m) {
-		vertical = v;
-		magnitude = m;
+	public int getS() {
+		return speed;
 	}
-	
-	public double getLength() {
-		return length;
+	public Line getAttackLine() {
+		return attackLine;
 	}
-	
-	public boolean getV() {
-		return vertical;
-	};
-	public int getM() {
-		return magnitude;
-	};
-	
+	public double getRadius() {
+		return radius;
+	}
+	public GameUnit getTarget() {
+		return target;
+	}
+
+	// Mutators
+	public void setTarget(GameUnit u) {
+		target = u;
+	}
+
+	// Movement
 	public void move(double x, double y) {
 		super.move(x, y);
-		highlight.setLayoutX(x);
-		highlight.setLayoutY(y);
 	}
 	
-	public boolean isSelected() {
-		return selected;
+	//Animation
+	public void setMoveAnimation(AnimationTimer t) {
+		moveAnim = t;
 	}
-	
-	public void toggleSelect() {
-		if(selected) {
-			selected = false;
-			highlight.setStroke(Color.TRANSPARENT);
-		}
-		else {
-			selected = true;
-			highlight.setStroke(color);
-		}
+	public void startMoveAnimation() {
+		moveAnim.start();
 	}
+	public void stopMoveAnimation() {
+		moveAnim.stop();
+	}
+	public void setAttackAnimation(AnimationTimer t) {
+		moveAnim = t;
+	}
+	public void startAttackAnimation() {
+		moveAnim.start();
+	}
+	public void stopAttackAnimation() {
+		moveAnim.stop();
+	}
+
 }

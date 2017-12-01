@@ -1,16 +1,20 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 
-public class Shooter extends GameUnit {
-	public Shooter(double radius) {
-		length = radius;
+public class Shooter extends PlayerUnit {
+	public Shooter(double r) {
+		radius = r;
 		color = Color.RED;
 		shape = new Circle(radius);
-		shape.setFill(color);
 		highlight = new Circle(radius+5);
-		highlight.setFill(Color.TRANSPARENT);
-		highlight.setMouseTransparent(true);
-		selected = true;
-		toggleSelect();
+		attackLine = new Line();
+		
+		attackRange = new Circle(radius*6);
+		attackRange.setMouseTransparent(true);
+		attackRange.setFill(Color.TRANSPARENT);
+		attackRange.setStroke(Color.BLACK);
+		speed = 3;
+		setup();
 	}
 }

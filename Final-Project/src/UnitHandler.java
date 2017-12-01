@@ -2,9 +2,9 @@ import java.util.HashSet;
 
 public class UnitHandler {
 	
-	HashSet<GameUnit> playerUnits;
+	HashSet<PlayerUnit> playerUnits;
 	HashSet<GameUnit> enemyUnits;
-	HashSet<GameUnit> selectedUnits;
+	HashSet<PlayerUnit> selectedUnits;
 	
 	public static final int PLAYER = 0;
 	public static final int ENEMY = 1;
@@ -16,7 +16,7 @@ public class UnitHandler {
 		selectedUnits = new HashSet<>();
 	}
 	
-	public HashSet<GameUnit> getSet(int i){
+	public HashSet<? extends GameUnit> getSet(int i){
 		switch(i) {
 			case PLAYER:
 				return playerUnits;
@@ -31,14 +31,14 @@ public class UnitHandler {
 	public void addUnit(int i, GameUnit u){
 		switch(i) {
 			case PLAYER:
-				playerUnits.add(u);
+				playerUnits.add((PlayerUnit)u);
 				break;
 			case ENEMY:
 				enemyUnits.add(u);
 				break;
 			case SELECTED:
-				selectedUnits.add(u);
-				u.toggleSelect();
+				selectedUnits.add((PlayerUnit)u);
+				((PlayerUnit)u).toggleSelect();
 				break;
 		}
 	}
@@ -52,7 +52,7 @@ public class UnitHandler {
 				break;
 			case SELECTED:
 				selectedUnits.remove(u);
-				u.toggleSelect();
+				((PlayerUnit)u).toggleSelect();
 				break;
 		}
 	}

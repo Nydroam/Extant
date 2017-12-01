@@ -26,15 +26,17 @@ public class GameSelectionBox extends SelectionBox{
 			unitHandler.getSet(UnitHandler.PLAYER).stream()
 			.forEach( u-> {
 				if(selectionBox.contains(new Point2D(u.getX(),u.getY()))) {
-					if(!u.isSelected()) {
+					if(!((PlayerUnit)u).isSelected()) {
 						unitHandler.addUnit(UnitHandler.SELECTED, u);
 					}
 				} else {
-					if(u.isSelected()) {
+					if(((PlayerUnit)u).isSelected()) {
 						unitHandler.removeUnit(UnitHandler.SELECTED, u);
 					}
 				}
 			});
 		}
+		
 	}
+	
 }

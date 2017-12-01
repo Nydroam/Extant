@@ -9,6 +9,7 @@ public class Unit {
 	protected double xPos;
 	protected double yPos;
 	
+	
 	public Unit() {
 	}
 	
@@ -27,21 +28,11 @@ public class Unit {
 		return hp;
 	}
 	
-	public void decHP() {
-		hp--;
-	}
-	public void incHP() {
-		hp++;
-	}
-	
 	public void move(double x, double y) {
 		xPos = x;
 		yPos = y;
 		shape.setLayoutX(x);
 		shape.setLayoutY(y);
 	}
-	
-	public void attack(Unit other) {
-		other.decHP();
-	}
+
 }
