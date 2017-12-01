@@ -15,16 +15,19 @@ public class GameUnit extends Unit {
 	protected AnimationTimer moveAnim;
 	protected AnimationTimer attackAnim;
 	protected boolean canAttack;
-	
+	protected boolean isAlive;
 	// Attack
 	protected GameUnit target;
 	protected Line attackLine;
 	protected Circle attackRange;
+	protected double maxHP;
 
 	// setup
 	public void setup() {
 		shape.setFill(color);
 		canAttack = false;
+		isAlive = true;
+		hp = (int)maxHP;
 	}
 
 	// Accessors
@@ -46,10 +49,22 @@ public class GameUnit extends Unit {
 	public GameUnit getTarget() {
 		return target;
 	}
-
+	public boolean isAlive() {
+		return isAlive;
+	}
 	// Mutators
 	public void setTarget(GameUnit u) {
 		target = u;
+	}
+	
+	public void decHP(int h) {
+		hp -= h;
+		if(hp<=0)
+			isAlive = false;
+		double frac = hp/maxHP;
+		shape.setScaleX(frac);
+		shape.setScaleY(frac);
+		
 	}
 
 	// Movement

@@ -91,14 +91,18 @@ public class PlayHandler {
 		screen.getScene().setOnMouseClicked(null);
 		
 		//starting spawn
-		for(int i = 0; i < 50;i++) {
+		for(int i = 0; i < 100;i++) {
 		Enemy e = new Enemy(screen.getHeight()/50);
 		e.move(Math.random()*screen.getWidth()*3/4,Math.random()*screen.getHeight()*3/4);
 		unitHandler.addUnit(UnitHandler.ENEMY, e);
 		screen.addNode(e.getShape());
+		screen.addNode(e.getAttackLine());
+		screen.addNode(e.getAttackRange());
+		e.setAttackAnimation(unitHandler, screen.getPane());
+		e.startAttackAnimation();
 		}
 		//setting player unit attacking and moving
-		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen.getScene());
+		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen);
 		h.prepareAnimations();
 	}
 }

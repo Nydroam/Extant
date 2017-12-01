@@ -9,7 +9,7 @@ public class Chaser extends PlayerUnit{
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		speed = 4;
-		
+		maxHP = 200;
 		setup();
 		
 	}

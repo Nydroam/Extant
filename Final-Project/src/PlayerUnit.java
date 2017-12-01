@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class PlayerUnit extends GameUnit {
@@ -57,6 +58,12 @@ public class PlayerUnit extends GameUnit {
 		magnitude = m;
 	}
 	
+	public void decHP(int h) {
+		super.decHP(h);
+		double frac = hp/maxHP;
+		highlight.setScaleX(frac);
+		highlight.setScaleY(frac);
+	}
 	public void setMoveAnimation(double width, double height) {
 		moveAnim = new AnimationTimer() {
 			int i = 0;
@@ -68,7 +75,8 @@ public class PlayerUnit extends GameUnit {
 				else {
 					move(xPos+magnitude, yPos);
 				}
-				if(xPos+radius>width||xPos-radius<0||yPos+radius>=height||yPos-radius<=0) {
+				double r = ((Circle)shape).getRadius();
+				if(xPos+r>width||xPos-r<0||yPos+r>=height||yPos-r<=0) {
 					setDirection(vertical,-1*magnitude);
 					if(vertical) {
 						move(xPos, yPos+magnitude);

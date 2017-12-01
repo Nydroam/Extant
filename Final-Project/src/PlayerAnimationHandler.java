@@ -1,14 +1,18 @@
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import screen.Screen;
 
 public class PlayerAnimationHandler {
 	UnitHandler unitHandler;
 	Scene scene;
+	Pane pane;
 
-	public PlayerAnimationHandler(UnitHandler uh, Scene s) {
+	public PlayerAnimationHandler(UnitHandler uh, Screen s) {
 		unitHandler = uh;
-		scene = s;
+		scene = s.getScene();
+		pane = s.getPane();
 	}
 
 	public void prepareAnimations() {
@@ -18,7 +22,7 @@ public class PlayerAnimationHandler {
 			u.startMoveAnimation();
 			if (u instanceof AttackUnit) {
 				AttackUnit atk = (AttackUnit) u;
-				atk.setAttackAnimation(unitHandler);
+				atk.setAttackAnimation(unitHandler, pane);
 				u.startAttackAnimation();
 			}
 		});

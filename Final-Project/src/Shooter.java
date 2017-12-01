@@ -1,6 +1,7 @@
 import java.util.Comparator;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -14,7 +15,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(5);
-		
+		maxHP = 150;
 		speed = 3;
 		setup();
 	}
@@ -26,9 +27,10 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		attackRange.setStroke(Color.BLACK);
 	}
 	
-	public void setAttackAnimation(UnitHandler unitHandler) {
+	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		attackAnim = new AnimationTimer() {
 			public void handle(long now) {
+				
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
 					attackLine.toFront();
 					attackLine.setStroke(Color.MEDIUMVIOLETRED);
@@ -36,6 +38,14 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 					attackLine.setStartY(yPos);
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
+					if(target.isAlive()) {
+						target.decHP(1);
+					if(!target.isAlive()) {
+						unitHandler.removeUnit(UnitHandler.ENEMY, target);
+						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange());
+						target.stopAttackAnimation();
+						attackLine.setStroke(Color.TRANSPARENT);
+					}}
 					retarget(unitHandler);
 				}
 				else {
@@ -47,6 +57,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 	}
 	
 	public void retarget(UnitHandler unitHandler) {
+		if(!unitHandler.getSet(UnitHandler.ENEMY).isEmpty()) {
 		target = unitHandler.getSet(UnitHandler.ENEMY).stream().
 				min( new Comparator<GameUnit>() {
 			public int compare(GameUnit a, GameUnit b) {
@@ -58,5 +69,9 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 					return -1;
 			}
 		}).get();
+		}else {
+			target = null;
+		}
+		
 	}
 }
