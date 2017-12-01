@@ -54,6 +54,7 @@ public class GameScreenManager extends ScreenManager {
 	
 	public Screen setPlay() {
 		Screen s = super.setPlay();
+		s.addText(0, height/2, width, height/25, true, "Start Placing Units!\nPress ENTER to Begin!");
 		PlayHandler handler = new PlayHandler(s, numChasers, numShooters);
 		handler.prepare();
 		return s;

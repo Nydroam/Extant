@@ -75,8 +75,9 @@ public class PlayerUnit extends GameUnit {
 				else {
 					move(xPos+magnitude, yPos);
 				}
-				double r = ((Circle)shape).getRadius();
-				if(xPos+r>width||xPos-r<0||yPos+r>=height||yPos-r<=0) {
+				double frac = hp/maxHP;
+				double r = radius*frac;
+				if(xPos+r>width||xPos-r<0||yPos+r>height||yPos-r<0) {
 					setDirection(vertical,-1*magnitude);
 					if(vertical) {
 						move(xPos, yPos+magnitude);

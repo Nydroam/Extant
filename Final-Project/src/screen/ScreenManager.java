@@ -95,7 +95,7 @@ public class ScreenManager {
 	
 	public Screen setPlay() {
 		Screen s = new Screen(scene);
-		s.addText(0, height/2, width, height/25, true, "Start Placing Units!\nPress Spacebar to Begin!");
+		
 		return s;
 	}
 }

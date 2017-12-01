@@ -15,7 +15,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(5);
-		maxHP = 150;
+		maxHP = 500;
 		speed = 3;
 		setup();
 	}
@@ -44,6 +44,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange());
 						target.stopAttackAnimation();
+						target.stopMoveAnimation();
 						attackLine.setStroke(Color.TRANSPARENT);
 					}}
 					retarget(unitHandler);

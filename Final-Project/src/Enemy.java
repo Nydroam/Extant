@@ -13,7 +13,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		radius = r;
 		color = Color.GRAY;
 		shape = new Rectangle(r*2,r*2);
-		speed = 4;
+		speed = 3;
 		shape.setFill(color);
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
@@ -30,8 +30,6 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 	}
 	public void decHP(int h) {
 		super.decHP(h);
-		
-		
 	}
 	public void move(double x, double y) {
 		xPos = x + ((Rectangle)shape).getWidth()/2.0;
@@ -54,12 +52,13 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
 					if(target.isAlive()) {
-						target.decHP(1);
+						target.decHP(2);
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.PLAYER, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange(),((PlayerUnit)target).getHighlight());
 						target.stopMoveAnimation();
-						target.stopAttackAnimation();
+						if(target instanceof AttackUnit)
+							target.stopAttackAnimation();
 						attackLine.setStroke(Color.TRANSPARENT);
 					}}
 					retarget(unitHandler);
@@ -72,6 +71,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 			}
 		};
 	}
+	
 	public void retarget(UnitHandler unitHandler) {
 		if(!unitHandler.getSet(UnitHandler.PLAYER).isEmpty()) {
 		target = unitHandler.getSet(UnitHandler.PLAYER).stream().
