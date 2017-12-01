@@ -1,5 +1,7 @@
 import java.util.HashSet;
 
+import screen.ScreenManager;
+
 public class UnitHandler {
 	
 	HashSet<GameUnit> playerUnits;
@@ -10,10 +12,18 @@ public class UnitHandler {
 	public static final int ENEMY = 1;
 	public static final int SELECTED = 2;
 	
-	public UnitHandler() {
+	GameScreenManager manager;
+	SpawnHandler spawn;
+	
+	public UnitHandler(GameScreenManager m) {
 		playerUnits = new HashSet<>();
 		enemyUnits = new HashSet<>();
 		selectedUnits = new HashSet<>();
+		manager = m;
+	}
+	
+	public void setSpawnHandler(SpawnHandler s) {
+		spawn = s;
 	}
 	
 	public HashSet<GameUnit> getSet(int i){
@@ -46,9 +56,16 @@ public class UnitHandler {
 		switch(i) {
 			case PLAYER:
 				playerUnits.remove(u);
+				if(playerUnits.isEmpty()) {
+					clearAll();
+					manager.setState(ScreenManager.SCORE_STATE);
+					spawn.stopTimer();
+				}
+					
 				break;
 			case ENEMY:
 				enemyUnits.remove(u);
+				Settings.score+=100;
 				break;
 			case SELECTED:
 				selectedUnits.remove(u);

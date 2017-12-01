@@ -6,16 +6,13 @@ import screen.Screen;
 public class PlayHandler {
 
 	private Screen screen;
-	private int numChasers;
-	private int numShooters;
 	private UnitHandler unitHandler;
-
-	public PlayHandler(Screen s, int nc, int ns) {
+	private GameScreenManager manager;
+	private SpawnHandler spawn;
+	public PlayHandler(Screen s, GameScreenManager m) {
 		screen = s;
-		numChasers = nc;
-		numShooters = ns;
-		unitHandler = new UnitHandler();
-
+		manager = m;
+		unitHandler = new UnitHandler(manager);
 	}
 
 	public void prepare() {
@@ -23,10 +20,10 @@ public class PlayHandler {
 			if (e.getCode() == KeyCode.ENTER)
 				play();
 		});
-		screen.getScene().setOnMouseClicked(e -> {
+		/*screen.getScene().setOnMouseClicked(e -> {
 			if (e.getButton() == MouseButton.SECONDARY)
 				unitHandler.getSet(UnitHandler.SELECTED).stream().forEach(u -> u.move(e.getX(), e.getY()));
-		});
+		});*/
 
 		addUnits(PlayerUnit.CHASER);
 		addUnits(PlayerUnit.SHOOTER);
@@ -34,6 +31,10 @@ public class PlayHandler {
 		// setting player unit attacking and moving
 		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen);
 		h.prepareAnimations();
+		// Setting up selection box
+		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
+		screen.getPane().getChildren().add(selectionBox.getBox());
+		selectionBox.setBoxEvents();
 	}
 
 	public void addUnits(int type) {
@@ -41,14 +42,14 @@ public class PlayHandler {
 		PlayerUnit u = null;
 		switch (type) {
 		case PlayerUnit.CHASER:
-			numUnits = numChasers;
+			numUnits = Settings.numChasers;
 			for (int i = 0; i < numUnits; i++) {
 				u = new Chaser(screen.getHeight() / 25);
 				addUnit(u, i, numUnits, type);
 			}
 			break;
 		case PlayerUnit.SHOOTER:
-			numUnits = numShooters;
+			numUnits = Settings.numShooters;
 			for (int i = 0; i < numUnits; i++) {
 				u = new Shooter(screen.getHeight() / 25);
 				addUnit(u, i, numUnits, type);
@@ -81,34 +82,22 @@ public class PlayHandler {
 			unitHandler.addUnit(UnitHandler.SELECTED, u);
 
 		}
+		
+		
 	}
 
 	public void play() {
 		// Removing Screen Instruction Text
 		screen.getPane().getChildren().remove(0);
 
-		// Setting up selection box
-		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
-		screen.getPane().getChildren().add(selectionBox.getBox());
-		selectionBox.setBoxEvents();
-
 		// removing preparation mechanic
-		screen.getScene().setOnMouseClicked(null);
 		screen.getScene().setOnKeyReleased(null);
 
 		// starting spawn
-		for (int i = 0; i < 20; i++) {
-			Enemy e = new Enemy(screen.getHeight() / 50);
-			e.move(Math.random() * screen.getWidth() * 3 / 4, Math.random() * screen.getHeight() * 3 / 4);
-			unitHandler.addUnit(UnitHandler.ENEMY, e);
-			screen.addNode(e.getShape());
-			screen.addNode(e.getAttackLine());
-			screen.addNode(e.getAttackRange());
-			e.setAttackAnimation(unitHandler, screen.getPane());
-			e.startAttackAnimation();
-			e.setMoveAnimation(screen.getWidth(), screen.getHeight());
-			e.startMoveAnimation();
-		}
+		spawn = new SpawnHandler(unitHandler,screen);
+		unitHandler.setSpawnHandler(spawn);
+		spawn.setupTimer();
+		spawn.startTimer();
 
 	}
 }

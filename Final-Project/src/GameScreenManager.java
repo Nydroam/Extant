@@ -6,13 +6,9 @@ import screen.Screen;
 import screen.ScreenManager;
 public class GameScreenManager extends ScreenManager {
 
-	private int numChasers;
-	private int numShooters;
 	
 	public GameScreenManager(double w, double h, Scene s) {
 		super(w, h, s);
-		numChasers = 4;
-		numShooters = 4;
 	}
 
 	public Screen setHelp() {
@@ -37,7 +33,7 @@ public class GameScreenManager extends ScreenManager {
 		chaserText.setY(height/11*5);
 		chaserText.setWrappingWidth(width/3);
 		chaserText.setTextAlignment(TextAlignment.RIGHT);
-		chaserText.setText("Number of Chasers: " + numChasers);
+		chaserText.setText("Number of Chasers: " + Settings.numChasers);
 		s.addText(chaserText);
 		
 		Text shooterText = new Text();
@@ -46,18 +42,26 @@ public class GameScreenManager extends ScreenManager {
 		shooterText.setY(height/11*6);
 		shooterText.setWrappingWidth(width/3);
 		shooterText.setTextAlignment(TextAlignment.RIGHT);
-		shooterText.setText("Number of Shooters: " + numShooters);
+		shooterText.setText("Number of Shooters: " + Settings.numShooters);
 		s.addText(shooterText);
 		
 		return s;
 	}
 	
 	public Screen setPlay() {
+		Settings.score = 0;
 		Screen s = super.setPlay();
 		s.addText(0, height/2, width, height/25, true, "Start Placing Units!\nPress ENTER to Begin!");
-		PlayHandler handler = new PlayHandler(s, numChasers, numShooters);
+		PlayHandler handler = new PlayHandler(s, this);
 		handler.prepare();
 		return s;
 
+	}
+	
+	public Screen setScore() {
+		Screen s = super.setScore();
+		s.addText(0, height/3, width, height/10, true, "SCORE");
+		s.addText(0, height/2, width, height/15, true, ""+Settings.score);
+		return s;
 	}
 }

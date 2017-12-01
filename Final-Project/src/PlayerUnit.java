@@ -1,6 +1,5 @@
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class PlayerUnit extends GameUnit {
@@ -47,9 +46,14 @@ public class PlayerUnit extends GameUnit {
 		if (selected) {
 			selected = false;
 			highlight.setStroke(Color.TRANSPARENT);
+			if(canAttack)
+				attackRange.setStroke(Color.TRANSPARENT);
+				
 		} else {
 			selected = true;
 			highlight.setStroke(color);
+			if(canAttack)
+				attackRange.setStroke(Color.BLACK);
 		}
 	}
 	
@@ -64,11 +68,20 @@ public class PlayerUnit extends GameUnit {
 		highlight.setScaleX(frac);
 		highlight.setScaleY(frac);
 	}
+	public void incHP(int h) {
+		super.incHP(h);
+		double frac = hp/maxHP;
+		highlight.setScaleX(frac);
+		highlight.setScaleY(frac);
+	}
 	public void setMoveAnimation(double width, double height) {
+		PlayerUnit t = this;
 		moveAnim = new AnimationTimer() {
-			int i = 0;
+		
 			public void handle(long now) {
-				if(i==1) {
+				//healing
+				if(t instanceof Chaser)
+					t.incHP(1);
 				if(vertical) {
 					move(xPos, yPos+magnitude);
 				}
@@ -86,9 +99,7 @@ public class PlayerUnit extends GameUnit {
 						move(xPos+magnitude, yPos);
 					}
 				}
-				i = 0;
-				}
-				i++;
+				
 			}
 		};
 	}

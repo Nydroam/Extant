@@ -15,7 +15,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		shape = new Rectangle(r*2,r*2);
 		speed = 3;
 		shape.setFill(color);
-		attackRange = new Circle(radius*6);
+		attackRange = new Circle(radius*7);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(10);
 		maxHP = 50;
@@ -26,7 +26,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		canAttack = true;
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
-		attackRange.setStroke(Color.BLACK);
+		///attackRange.setStroke(Color.BLACK);
 	}
 	public void decHP(int h) {
 		super.decHP(h);
@@ -87,6 +87,10 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		}).get();
 		}else {
 			target = null;
+			this.stopMoveAnimation();
+			if(canAttack)
+				this.stopAttackAnimation();
+			
 		}
 		
 	}

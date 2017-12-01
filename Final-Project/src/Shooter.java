@@ -24,7 +24,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		canAttack = true;
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
-		attackRange.setStroke(Color.BLACK);
+		//attackRange.setStroke(Color.BLACK);
 	}
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {

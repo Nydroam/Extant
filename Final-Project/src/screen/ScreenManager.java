@@ -8,6 +8,7 @@ public class ScreenManager {
 	public static final int HELP_STATE = 1;
 	public static final int SETTINGS_STATE = 2;
 	public static final int PLAY_STATE = 3;
+	public static final int SCORE_STATE = 4;
 	
 	//Scene to adjust based on state
 	protected Scene scene;
@@ -42,6 +43,9 @@ public class ScreenManager {
 				break;
 			case PLAY_STATE:
 				setPlay();
+				break;
+			case SCORE_STATE:
+				setScore();
 				break;
 		}
 		return null;
@@ -96,6 +100,14 @@ public class ScreenManager {
 	public Screen setPlay() {
 		Screen s = new Screen(scene);
 		
+		return s;
+	}
+	
+	public Screen setScore() {
+		Screen s = new Screen(scene);
+		s.addButton(width/2-buttonWidth/2,height*3/4,buttonWidth,buttonHeight, "Menu", e -> {
+			setState(MENU_STATE);
+		});
 		return s;
 	}
 }

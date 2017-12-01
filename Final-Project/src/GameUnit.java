@@ -25,6 +25,7 @@ public class GameUnit extends Unit {
 	// setup
 	public void setup() {
 		shape.setFill(color);
+		shape.setStroke(Color.BLACK);
 		canAttack = false;
 		isAlive = true;
 		hp = (int)maxHP;
@@ -65,6 +66,18 @@ public class GameUnit extends Unit {
 		shape.setScaleX(frac);
 		shape.setScaleY(frac);
 		
+	}
+	
+	public void incHP(int h) {
+		if(isAlive) {
+			if(hp+h>=maxHP)
+				hp = (int)maxHP;
+			else
+				hp+=h;
+			double frac = hp/maxHP;
+			shape.setScaleX(frac);
+			shape.setScaleY(frac);
+		}
 	}
 
 	// Movement
