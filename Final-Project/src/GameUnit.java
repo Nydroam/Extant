@@ -62,10 +62,14 @@ public class GameUnit extends Unit {
 		hp -= h;
 		if(hp<=0)
 			isAlive = false;
-		double frac = hp/maxHP;
+		rescale();
+		
+	}
+	
+	public void rescale() {
+		double frac = hp/maxHP/10*9+0.1;
 		shape.setScaleX(frac);
 		shape.setScaleY(frac);
-		
 	}
 	
 	public void incHP(int h) {
@@ -74,9 +78,7 @@ public class GameUnit extends Unit {
 				hp = (int)maxHP;
 			else
 				hp+=h;
-			double frac = hp/maxHP;
-			shape.setScaleX(frac);
-			shape.setScaleY(frac);
+			rescale();
 		}
 	}
 

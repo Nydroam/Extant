@@ -18,7 +18,7 @@ public class SpawnHandler {
 	}
 	
 	public void setupTimer() {
-		warnings = new Text[5];
+		warnings = new Text[Settings.numEnemies];
 		for(int i = 0; i < warnings.length; i++) {
 			warnings[i] = new Text("!");
 			
@@ -78,16 +78,16 @@ public class SpawnHandler {
 	}
 	
 	public void spawnUnits(int direction) {
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < Settings.numEnemies; i++) {
 			Enemy e = new Enemy(screen.getHeight()/50);
 			if(direction == 0) //left
-				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/6);
+				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));
 			if(direction == 1) //right
-				e.move(screen.getWidth(), (i+1)*screen.getHeight()/6);
+				e.move(screen.getWidth(), (i+1)*screen.getHeight()/(Settings.numEnemies+1));
 			if(direction == 2) //up
-				e.move((i+1)*screen.getWidth()/6, -1*e.getRadius()*2);
+				e.move((i+1)*screen.getWidth()/(Settings.numEnemies+1), -1*e.getRadius()*2);
 			if(direction == 3) //down
-				e.move((i+1)*screen.getWidth()/6, screen.getHeight());
+				e.move((i+1)*screen.getWidth()/(Settings.numEnemies+1), screen.getHeight());
 			unitHandler.addUnit(UnitHandler.ENEMY, e);
 			screen.addNode(e.getShape());
 			screen.addNode(e.getAttackLine());

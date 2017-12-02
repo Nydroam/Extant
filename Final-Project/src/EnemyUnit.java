@@ -1,12 +1,16 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 
 public class EnemyUnit extends GameUnit{
 	public void setMoveAnimation(double width, double height) {
 		moveAnim = new AnimationTimer() {
-			
+			int i = 0;
 			public void handle(long now) {
-				
+				i++;
+				shape.setRotationAxis(new Point3D(0,0,1));
+				shape.setRotate(i*3);
 				if(target!=null) {
+					
 					double xDist = target.getX()-xPos;
 					
 					double yDist = target.getY()-yPos;

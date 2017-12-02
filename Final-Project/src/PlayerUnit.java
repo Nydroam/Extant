@@ -1,5 +1,7 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class PlayerUnit extends GameUnit {
@@ -62,26 +64,21 @@ public class PlayerUnit extends GameUnit {
 		magnitude = m;
 	}
 	
-	public void decHP(int h) {
-		super.decHP(h);
-		double frac = hp/maxHP;
-		highlight.setScaleX(frac);
-		highlight.setScaleY(frac);
-	}
-	public void incHP(int h) {
-		super.incHP(h);
-		double frac = hp/maxHP;
-		highlight.setScaleX(frac);
-		highlight.setScaleY(frac);
+	public void rescale() {
+		super.rescale();
+		((Circle)highlight).setRadius(radius*(hp/maxHP/10*9+0.1)+5);
 	}
 	public void setMoveAnimation(double width, double height) {
 		PlayerUnit t = this;
 		moveAnim = new AnimationTimer() {
-		
+			int i = 0;
 			public void handle(long now) {
+				i++;
 				//healing
 				if(t instanceof Chaser)
 					t.incHP(1);
+				
+				
 				if(vertical) {
 					move(xPos, yPos+magnitude);
 				}
