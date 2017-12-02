@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import screen.Screen;
 
 public class SpawnHandler {
@@ -11,6 +12,7 @@ public class SpawnHandler {
 	private UnitHandler unitHandler;
 	private Screen screen;
 	private Text[] warnings;
+	private Text scoreText;
 	
 	public SpawnHandler(UnitHandler u, Screen s) {
 		unitHandler = u;
@@ -18,6 +20,17 @@ public class SpawnHandler {
 	}
 	
 	public void setupTimer() {
+		scoreText = new Text(Settings.score+"");
+		scoreText.setMouseTransparent(true);
+		scoreText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/10));
+		scoreText.setTextAlignment(TextAlignment.CENTER);
+		scoreText.setStrokeWidth(3);
+		scoreText.setX(0);
+		scoreText.setY(screen.getHeight()/2);
+		scoreText.setWrappingWidth(screen.getWidth());
+		scoreText.setFill(Color.TRANSPARENT);
+		scoreText.setStroke(Color.TRANSPARENT);
+		screen.addNode(scoreText);
 		warnings = new Text[Settings.numEnemies];
 		for(int i = 0; i < warnings.length; i++) {
 			warnings[i] = new Text("!");
@@ -31,12 +44,13 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>300&&!gaveWarning) {
+				if(i>700&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>500) {
+				if(i>1000) {
+					scoreText.setStroke(Color.TRANSPARENT);
 					for(int i = 0; i < warnings.length; i++)
 						warnings[i].setFill(Color.TRANSPARENT);
 					spawnUnits(direction);
@@ -56,6 +70,8 @@ public class SpawnHandler {
 	}
 	
 	public void giveWarning(int direction) {
+		scoreText.setText(""+Settings.score);
+		scoreText.setStroke(Color.BLACK);
 		for(int i = 0; i < warnings.length; i++) {
 			warnings[i].setFill(Color.RED);
 			if(direction == 0) {

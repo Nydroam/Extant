@@ -93,6 +93,9 @@ public class PlayHandler {
 		// removing preparation mechanic
 		screen.getScene().setOnKeyReleased(null);
 
+		//score
+		
+		
 		// starting spawn
 		spawn = new SpawnHandler(unitHandler,screen);
 		unitHandler.setSpawnHandler(spawn);

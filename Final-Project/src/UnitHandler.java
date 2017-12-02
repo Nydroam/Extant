@@ -1,5 +1,6 @@
 import java.util.HashSet;
 
+import javafx.scene.text.Text;
 import screen.ScreenManager;
 
 public class UnitHandler {
@@ -56,7 +57,9 @@ public class UnitHandler {
 		switch(i) {
 			case PLAYER:
 				playerUnits.remove(u);
-				if(playerUnits.isEmpty()) {
+		
+				if(!playerUnits.stream().anyMatch(un->un instanceof AttackUnit)) {
+				
 					clearAll();
 					manager.setState(ScreenManager.SCORE_STATE);
 					spawn.stopTimer();
@@ -65,7 +68,7 @@ public class UnitHandler {
 				break;
 			case ENEMY:
 				enemyUnits.remove(u);
-				Settings.score+=100;
+				Settings.score+=1;
 				break;
 			case SELECTED:
 				selectedUnits.remove(u);

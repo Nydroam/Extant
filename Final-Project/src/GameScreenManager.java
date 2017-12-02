@@ -35,6 +35,18 @@ public class GameScreenManager extends ScreenManager {
 		chaserText.setTextAlignment(TextAlignment.RIGHT);
 		chaserText.setText("Number of Chasers: " + Settings.numChasers);
 		s.addText(chaserText);
+		s.addButton(width/11*6, height/22*9, width/50, height/50, "", e->{
+			Settings.numChasers++;
+			if(Settings.numChasers>=10)
+				Settings.numChasers=10;
+			chaserText.setText("Number of Chasers: " + Settings.numChasers);
+		});
+		s.addButton(width/11*6, height/11*5, width/50, height/50, "", e->{
+			Settings.numChasers--;
+			if(Settings.numChasers<=0)
+				Settings.numChasers=0;
+			chaserText.setText("Number of Chasers: " + Settings.numChasers);
+		});
 		
 		Text shooterText = new Text();
 		shooterText.setFont(new Font("Times New Roman", height/25));
@@ -44,6 +56,18 @@ public class GameScreenManager extends ScreenManager {
 		shooterText.setTextAlignment(TextAlignment.RIGHT);
 		shooterText.setText("Number of Shooters: " + Settings.numShooters);
 		s.addText(shooterText);
+		s.addButton(width/11*6, height/22*11, width/50, height/50, "", e->{
+			Settings.numShooters++;
+			if(Settings.numShooters>=10)
+				Settings.numShooters=10;
+			shooterText.setText("Number of Shooters: " + Settings.numShooters);
+		});
+		s.addButton(width/11*6, height/11*6, width/50, height/50, "", e->{
+			Settings.numShooters--;
+			if(Settings.numShooters<=1)
+				Settings.numShooters=1;
+			shooterText.setText("Number of Shooters: " + Settings.numShooters);
+		});
 		
 		return s;
 	}
@@ -60,8 +84,8 @@ public class GameScreenManager extends ScreenManager {
 	
 	public Screen setScore() {
 		Screen s = super.setScore();
-		s.addText(0, height/3, width, height/10, true, "SCORE");
-		s.addText(0, height/2, width, height/15, true, ""+Settings.score);
+		s.addText(0, height/4, width, height/10, true, "SCORE");
+		s.addText(0, height/2, width, height/5, true, ""+Settings.score);
 		return s;
 	}
 }
