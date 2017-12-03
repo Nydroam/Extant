@@ -96,6 +96,8 @@ public class SpawnHandler {
 	public void spawnUnits(int direction) {
 		for(int i = 0; i < Settings.numEnemies; i++) {
 			Enemy e = new Enemy(screen.getHeight()/50);
+			if(Math.random()<=0.2)
+				e = new TargetedEnemy(screen.getHeight()/50);
 			if(direction == 0) //left
 				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));
 			if(direction == 1) //right

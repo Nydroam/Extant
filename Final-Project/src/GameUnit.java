@@ -83,13 +83,7 @@ public class GameUnit extends Unit {
 	}
 
 	// Movement
-	public void move(double x, double y) {
-		super.move(x, y);
-		if(canAttack) {
-			attackRange.setLayoutX(x);
-			attackRange.setLayoutY(y);
-		}
-	}
+	
 	
 	//Animation
 

@@ -5,8 +5,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
 public class PlayerUnit extends GameUnit {
-	public static final int CHASER = 0;
+	public static final int TANKER = 0;
 	public static final int SHOOTER = 1;
+	public static final int ERASER = 2;
 
 	protected Shape highlight;
 	
@@ -48,13 +49,13 @@ public class PlayerUnit extends GameUnit {
 		if (selected) {
 			selected = false;
 			highlight.setStroke(Color.TRANSPARENT);
-			if(canAttack)
+			if(attackRange!=null)
 				attackRange.setStroke(Color.TRANSPARENT);
 				
 		} else {
 			selected = true;
 			highlight.setStroke(color);
-			if(canAttack)
+			if(attackRange!=null)
 				attackRange.setStroke(Color.BLACK);
 		}
 	}
@@ -75,7 +76,7 @@ public class PlayerUnit extends GameUnit {
 			public void handle(long now) {
 				i++;
 				//healing
-				if(t instanceof Chaser)
+				if(t instanceof Tanker)
 					t.incHP(1);
 				
 				

@@ -1,86 +1,83 @@
-import java.util.Comparator;
+import java.util.HashSet;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public class Shooter extends PlayerUnit implements AttackUnit{
-	public Shooter(double r) {
+public class Eraser extends PlayerUnit implements AttackUnit {
+	public Eraser(double r) {
 		radius = r;
-		color = Color.RED;
+		color = Color.YELLOW;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
-		attackRange = new Circle(radius*6);
 		attackLine = new Line();
-		attackLine.setStrokeWidth(5);
+		attackLine.setStrokeWidth(20);
 		maxHP = 500;
-		speed = 3;
+		speed = 2;
 		setup();
-	}
-	public void move(double x, double y) {
-		super.move(x, y);
-		attackRange.setLayoutX(x);
-		attackRange.setLayoutY(y);
 	}
 	public void setup() {
 		super.setup();
 		canAttack = true;
-		attackRange.setMouseTransparent(true);
-		attackRange.setFill(Color.TRANSPARENT);
-		//attackRange.setStroke(Color.BLACK);
 	}
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
+		
+		shape.setRotationAxis(new Point3D(1,0,0));
 		attackAnim = new AnimationTimer() {
 			int i = 0;
+			double charging=5000.0;
+			double shooting=charging + 250.0;
 			public void handle(long now) {
 				i++;
-				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
-					shape.toFront();
+				if(i<=charging) {//charge up state
+					shape.setFill(Color.YELLOW);
+					shape.setRotate(i/charging*80-80);
+				}
+				else if(i<=shooting) {
+					
+					shape.setFill(color);
+					shape.setRotate(((i-charging)/(shooting-charging))*(-80+360*3));
+					if(target!=null) {
 					attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
 					attackLine.setStartY(yPos);
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
 					if(target.isAlive()) {
-						target.decHP(1);
+						target.decHP(5);
+					}
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange());
 						target.stopAttackAnimation();
 						target.stopMoveAnimation();
 						attackLine.setStroke(Color.TRANSPARENT);
-					}}
+					}
+					retarget(unitHandler);
+					}
+					else {
+						attackLine.setStroke(Color.TRANSPARENT);
 						retarget(unitHandler);
+					}
 				}
 				else {
 					attackLine.setStroke(Color.TRANSPARENT);
-					
-						retarget(unitHandler);
-					
+					i = 0;
 				}
 			}
 		};
 	}
 	
 	public void retarget(UnitHandler unitHandler) {
-		if(!unitHandler.getSet(UnitHandler.ENEMY).isEmpty()) {
-		target = unitHandler.getSet(UnitHandler.ENEMY).stream().
-				min( new Comparator<GameUnit>() {
-			public int compare(GameUnit a, GameUnit b) {
-				double dist1 = Math.sqrt(Math.pow(a.getX()-xPos,2)+Math.pow(a.getY()-yPos, 2));
-				double dist2 = Math.sqrt(Math.pow(b.getX()-xPos,2)+Math.pow(b.getY()-yPos, 2));
-				if(dist1>dist2)
-					return 1;
-				else
-					return -1;
+		HashSet<GameUnit> enemies = unitHandler.getSet(UnitHandler.ENEMY);
+		if(!enemies.isEmpty()) {
+			target = enemies.iterator().next();
+			}else {
+				target = null;
 			}
-		}).get();
-		}else {
-			target = null;
-		}
-		
 	}
 }

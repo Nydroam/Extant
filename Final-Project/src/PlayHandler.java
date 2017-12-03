@@ -16,17 +16,18 @@ public class PlayHandler {
 	}
 
 	public void prepare() {
-		screen.getScene().setOnKeyReleased(e -> {
+		/*screen.getScene().setOnKeyReleased(e -> {
 			if (e.getCode() == KeyCode.ENTER)
 				play();
 		});
-		/*screen.getScene().setOnMouseClicked(e -> {
+		screen.getScene().setOnMouseClicked(e -> {
 			if (e.getButton() == MouseButton.SECONDARY)
 				unitHandler.getSet(UnitHandler.SELECTED).stream().forEach(u -> u.move(e.getX(), e.getY()));
 		});*/
 
-		addUnits(PlayerUnit.CHASER);
+		addUnits(PlayerUnit.TANKER);
 		addUnits(PlayerUnit.SHOOTER);
+		addUnits(PlayerUnit.ERASER);
 
 		// setting player unit attacking and moving
 		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen);
@@ -35,16 +36,17 @@ public class PlayHandler {
 		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
 		screen.getPane().getChildren().add(selectionBox.getBox());
 		selectionBox.setBoxEvents();
+		play();
 	}
 
 	public void addUnits(int type) {
 		int numUnits = 0;
 		PlayerUnit u = null;
 		switch (type) {
-		case PlayerUnit.CHASER:
-			numUnits = Settings.numChasers;
+		case PlayerUnit.TANKER:
+			numUnits = Settings.numTankers;
 			for (int i = 0; i < numUnits; i++) {
-				u = new Chaser(screen.getHeight() / 25);
+				u = new Tanker(screen.getHeight() / 25);
 				addUnit(u, i, numUnits, type);
 			}
 			break;
@@ -55,10 +57,23 @@ public class PlayHandler {
 				addUnit(u, i, numUnits, type);
 			}
 			break;
+		case PlayerUnit.ERASER:
+			if(Settings.eraserExists) {
+				u = new Eraser(screen.getHeight() / 25);
+				addEraser(u);
+			}
+			
 		}
 
 	}
-
+	public void addEraser(PlayerUnit u) {
+		u.move(screen.getWidth()/2, screen.getHeight()/2);
+		unitHandler.addUnit(UnitHandler.PLAYER, u);
+		u.getShape().setOnMouseClicked(e -> unitClickHandler(e, u));
+		screen.addNode(u.getShape());
+		screen.addNode(u.getHighlight());
+		screen.addNode(u.getAttackLine());
+	}
 	public void addUnit(PlayerUnit u, int i, int numUnits, int type) {
 
 		u.move((i + 1) * screen.getWidth() / (numUnits + 1), screen.getHeight() / 3 * (type + 1));
@@ -88,7 +103,7 @@ public class PlayHandler {
 
 	public void play() {
 		// Removing Screen Instruction Text
-		screen.getPane().getChildren().remove(0);
+		//screen.getPane().getChildren().remove(0);
 
 		// removing preparation mechanic
 		screen.getScene().setOnKeyReleased(null);

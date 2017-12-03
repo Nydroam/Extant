@@ -67,8 +67,9 @@ public class UnitHandler {
 					
 				break;
 			case ENEMY:
-				enemyUnits.remove(u);
-				Settings.score+=1;
+				
+				if(enemyUnits.remove(u))
+					Settings.score+=1;
 				break;
 			case SELECTED:
 				selectedUnits.remove(u);

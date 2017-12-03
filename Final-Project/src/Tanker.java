@@ -1,9 +1,9 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Chaser extends PlayerUnit{
+public class Tanker extends PlayerUnit{
 
-	public Chaser(double r) {
+	public Tanker(double r) {
 		radius = r;
 		color = Color.BLUE;
 		shape = new Circle(radius);

@@ -15,7 +15,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		shape = new Rectangle(r*2,r*2);
 		speed = 3;
 		shape.setFill(color);
-		attackRange = new Circle(radius*7);
+		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(10);
 		maxHP = 50;
@@ -47,7 +47,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 				i++;
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
 					attackLine.toBack();
-					attackLine.setStroke(Color.LIGHTSLATEGREY);
+					attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
 					attackLine.setStartY(yPos);
 					attackLine.setEndX(target.getX());

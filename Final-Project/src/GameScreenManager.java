@@ -33,19 +33,19 @@ public class GameScreenManager extends ScreenManager {
 		chaserText.setY(height/11*5);
 		chaserText.setWrappingWidth(width/3);
 		chaserText.setTextAlignment(TextAlignment.RIGHT);
-		chaserText.setText("Number of Chasers: " + Settings.numChasers);
+		chaserText.setText("Number of Chasers: " + Settings.numTankers);
 		s.addText(chaserText);
 		s.addButton(width/11*6, height/22*9, width/50, height/50, "", e->{
-			Settings.numChasers++;
-			if(Settings.numChasers>=10)
-				Settings.numChasers=10;
-			chaserText.setText("Number of Chasers: " + Settings.numChasers);
+			Settings.numTankers++;
+			if(Settings.numTankers>=10)
+				Settings.numTankers=10;
+			chaserText.setText("Number of Chasers: " + Settings.numTankers);
 		});
 		s.addButton(width/11*6, height/11*5, width/50, height/50, "", e->{
-			Settings.numChasers--;
-			if(Settings.numChasers<=0)
-				Settings.numChasers=0;
-			chaserText.setText("Number of Chasers: " + Settings.numChasers);
+			Settings.numTankers--;
+			if(Settings.numTankers<=0)
+				Settings.numTankers=0;
+			chaserText.setText("Number of Chasers: " + Settings.numTankers);
 		});
 		
 		Text shooterText = new Text();
@@ -75,7 +75,7 @@ public class GameScreenManager extends ScreenManager {
 	public Screen setPlay() {
 		Settings.score = 0;
 		Screen s = super.setPlay();
-		s.addText(0, height/2, width, height/25, true, "Start Placing Units!\nPress ENTER to Begin!");
+		//s.addText(0, height/2, width, height/25, true, "Start Placing Units!\nPress ENTER to Begin!");
 		PlayHandler handler = new PlayHandler(s, this);
 		handler.prepare();
 		return s;
