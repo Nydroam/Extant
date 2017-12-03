@@ -20,6 +20,7 @@ public class PlayerUnit extends GameUnit {
 		super.setup();
 		highlight.setFill(Color.TRANSPARENT);
 		highlight.setMouseTransparent(true);
+		
 		selected = true;
 		toggleSelect();
 	}

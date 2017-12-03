@@ -11,9 +11,9 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 	
 	public Enemy(double r) {
 		radius = r;
-		color = Color.GRAY;
+		color = Settings.enemyColor;
 		shape = new Rectangle(r*2,r*2);
-		speed = 3;
+		speed = 4;
 		shape.setFill(color);
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
@@ -23,7 +23,6 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 	}
 	public void setup() {
 		super.setup();
-		canAttack = true;
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
 		///attackRange.setStroke(Color.BLACK);
@@ -46,6 +45,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 			public void handle(long now) {
 				i++;
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
+					shape.setRotate(i*3);
 					attackLine.toBack();
 					attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
@@ -91,8 +91,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		}else {
 			target = null;
 			this.stopMoveAnimation();
-			if(canAttack)
-				this.stopAttackAnimation();
+			this.stopAttackAnimation();
 			
 		}
 		

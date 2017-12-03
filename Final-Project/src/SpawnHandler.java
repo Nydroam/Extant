@@ -34,7 +34,8 @@ public class SpawnHandler {
 		warnings = new Text[Settings.numEnemies];
 		for(int i = 0; i < warnings.length; i++) {
 			warnings[i] = new Text("!");
-			
+			warnings[i].setFill(Color.TRANSPARENT);
+			warnings[i].setStroke(Color.TRANSPARENT);
 			warnings[i].setFont(Font.font("Times New Roman",FontWeight.BOLD,screen.getHeight()/15));
 			screen.addNode(warnings[i]);
 		}
@@ -44,12 +45,12 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>700&&!gaveWarning) {
+				if(i>300&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>1000) {
+				if(i>500) {
 					scoreText.setStroke(Color.TRANSPARENT);
 					for(int i = 0; i < warnings.length; i++)
 						warnings[i].setFill(Color.TRANSPARENT);
@@ -95,9 +96,9 @@ public class SpawnHandler {
 	
 	public void spawnUnits(int direction) {
 		for(int i = 0; i < Settings.numEnemies; i++) {
-			Enemy e = new Enemy(screen.getHeight()/50);
-			if(Math.random()<=0.2)
-				e = new TargetedEnemy(screen.getHeight()/50);
+			EnemyUnit e = new Enemy(screen.getHeight()/50);
+			if(Math.random()<=0.5)
+				e = new Tracker(screen.getHeight()/50);
 			if(direction == 0) //left
 				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));
 			if(direction == 1) //right
@@ -110,8 +111,10 @@ public class SpawnHandler {
 			screen.addNode(e.getShape());
 			screen.addNode(e.getAttackLine());
 			screen.addNode(e.getAttackRange());
-			e.setAttackAnimation(unitHandler, screen.getPane());
+			if(e instanceof AttackUnit) {
+			((AttackUnit)e).setAttackAnimation(unitHandler, screen.getPane());
 			e.startAttackAnimation();
+			}
 			e.setMoveAnimation(screen.getWidth(), screen.getHeight());
 			e.startMoveAnimation();
 		}

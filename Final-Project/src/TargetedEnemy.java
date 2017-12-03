@@ -8,6 +8,7 @@ public class TargetedEnemy extends Enemy{
 		color = Color.RED;
 		shape.setFill(color);
 		attackRange.setRadius(radius*6);
+		
 	}
 	public void retarget(UnitHandler unitHandler) {
 		if(!unitHandler.getSet(UnitHandler.PLAYER).isEmpty()) {
@@ -26,8 +27,7 @@ public class TargetedEnemy extends Enemy{
 			target = null;
 			
 			this.stopMoveAnimation();
-			if(canAttack)
-				this.stopAttackAnimation();
+			this.stopAttackAnimation();
 			
 		}
 		

@@ -14,7 +14,6 @@ public class GameUnit extends Unit {
 	protected int speed;
 	protected AnimationTimer moveAnim;
 	protected AnimationTimer attackAnim;
-	protected boolean canAttack;
 	protected boolean isAlive;
 	// Attack
 	protected GameUnit target;
@@ -26,15 +25,15 @@ public class GameUnit extends Unit {
 	public void setup() {
 		shape.setFill(color);
 		shape.setStroke(Color.BLACK);
-		canAttack = false;
+
 		isAlive = true;
 		hp = (int)maxHP;
+		if(this instanceof AttackUnit)
+			attackLine.setStroke(Color.TRANSPARENT);
 	}
 
 	// Accessors
-	public boolean canAttack() {
-		return canAttack;
-	}
+	
 	public Circle getAttackRange() {
 		return attackRange;
 	}

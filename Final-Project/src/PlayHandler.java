@@ -83,7 +83,7 @@ public class PlayHandler {
 
 		screen.addNode(u.getShape());
 		screen.addNode(u.getHighlight());
-		if (u.canAttack()) {
+		if (u instanceof AttackUnit) {
 			screen.addNode(u.getAttackRange());
 			screen.addNode(u.getAttackLine());
 		}

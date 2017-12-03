@@ -9,7 +9,7 @@ import javafx.scene.shape.Line;
 public class Shooter extends PlayerUnit implements AttackUnit{
 	public Shooter(double r) {
 		radius = r;
-		color = Color.RED;
+		color = Settings.shooterColor;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		attackRange = new Circle(radius*6);
@@ -26,7 +26,6 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 	}
 	public void setup() {
 		super.setup();
-		canAttack = true;
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
 		//attackRange.setStroke(Color.BLACK);
@@ -38,7 +37,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 			public void handle(long now) {
 				i++;
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
-					shape.toFront();
+					attackLine.toBack();
 					attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
 					attackLine.setStartY(yPos);

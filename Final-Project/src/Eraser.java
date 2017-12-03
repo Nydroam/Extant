@@ -10,7 +10,7 @@ import javafx.scene.shape.Line;
 public class Eraser extends PlayerUnit implements AttackUnit {
 	public Eraser(double r) {
 		radius = r;
-		color = Color.YELLOW;
+		color = Settings.eraserColor;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		attackLine = new Line();
@@ -19,10 +19,6 @@ public class Eraser extends PlayerUnit implements AttackUnit {
 		speed = 2;
 		setup();
 	}
-	public void setup() {
-		super.setup();
-		canAttack = true;
-	}
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		
@@ -30,16 +26,15 @@ public class Eraser extends PlayerUnit implements AttackUnit {
 		attackAnim = new AnimationTimer() {
 			int i = 0;
 			double charging=5000.0;
-			double shooting=charging + 250.0;
+			double shooting=charging + 500.0;
 			public void handle(long now) {
 				i++;
 				if(i<=charging) {//charge up state
-					shape.setFill(Color.YELLOW);
+					
 					shape.setRotate(i/charging*80-80);
 				}
 				else if(i<=shooting) {
 					
-					shape.setFill(color);
 					shape.setRotate(((i-charging)/(shooting-charging))*(-80+360*3));
 					if(target!=null) {
 					attackLine.setStroke(color);

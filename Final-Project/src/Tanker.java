@@ -1,11 +1,10 @@
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Tanker extends PlayerUnit{
 
 	public Tanker(double r) {
 		radius = r;
-		color = Color.BLUE;
+		color = Settings.tankerColor;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		speed = 4;
