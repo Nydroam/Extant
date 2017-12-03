@@ -1,13 +1,12 @@
 import java.util.HashSet;
 
-import javafx.scene.text.Text;
 import screen.ScreenManager;
 
 public class UnitHandler {
 	
 	HashSet<GameUnit> playerUnits;
-	HashSet<GameUnit> enemyUnits;
-	HashSet<GameUnit> selectedUnits;
+	private HashSet<GameUnit> enemyUnits;
+	private HashSet<GameUnit> selectedUnits;
 	
 	public static final int PLAYER = 0;
 	public static final int ENEMY = 1;

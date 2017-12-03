@@ -22,11 +22,10 @@ public class SpawnHandler {
 	public void setupTimer() {
 		scoreText = new Text(Settings.score+"");
 		scoreText.setMouseTransparent(true);
-		scoreText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/10));
+		scoreText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/15));
 		scoreText.setTextAlignment(TextAlignment.CENTER);
-		scoreText.setStrokeWidth(3);
-		scoreText.setX(0);
-		scoreText.setY(screen.getHeight()/2);
+		scoreText.setStrokeWidth(1);
+		scoreText.setY(screen.getHeight()/2+screen.getHeight()/45);
 		scoreText.setWrappingWidth(screen.getWidth());
 		scoreText.setFill(Color.TRANSPARENT);
 		scoreText.setStroke(Color.TRANSPARENT);
@@ -45,12 +44,12 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>300&&!gaveWarning) {
+				if(i>100&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>500) {
+				if(i>200) {
 					scoreText.setStroke(Color.TRANSPARENT);
 					for(int i = 0; i < warnings.length; i++)
 						warnings[i].setFill(Color.TRANSPARENT);
@@ -97,8 +96,11 @@ public class SpawnHandler {
 	public void spawnUnits(int direction) {
 		for(int i = 0; i < Settings.numEnemies; i++) {
 			EnemyUnit e = new Enemy(screen.getHeight()/50);
-			if(Math.random()<=0.5)
-				e = new Tracker(screen.getHeight()/50);
+			double rand = Math.random();
+			//if(Math.random()<=0.5)
+				e = new Pulsar(screen.getHeight()/50);
+			//if(Math.random()>=0.8)
+				//e = new TargetedEnemy(screen.getHeight()/50);
 			if(direction == 0) //left
 				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));
 			if(direction == 1) //right

@@ -7,35 +7,51 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public class Eraser extends PlayerUnit implements AttackUnit {
+public class Eraser extends GameUnit implements AttackUnit {
+	private boolean erase;
 	public Eraser(double r) {
 		radius = r;
 		color = Settings.eraserColor;
 		shape = new Circle(radius);
-		highlight = new Circle(radius+5);
 		attackLine = new Line();
-		attackLine.setStrokeWidth(20);
-		maxHP = 500;
-		speed = 2;
+		attackLine.setStrokeWidth(10);
 		setup();
+	}
+	
+	public void erase() {
+		erase = true;
+	}
+	
+	public boolean getErase() {
+		return erase;
 	}
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		
-		shape.setRotationAxis(new Point3D(1,0,0));
+		shape.setRotationAxis(new Point3D(0,1,0));
 		attackAnim = new AnimationTimer() {
+			
 			int i = 0;
-			double charging=5000.0;
+			double charging=100.0;
 			double shooting=charging + 500.0;
 			public void handle(long now) {
-				i++;
+				shape.toBack();
+				if(unitHandler.getSet(UnitHandler.PLAYER).isEmpty())
+					this.stop();
+				
 				if(i<=charging) {//charge up state
-					
-					shape.setRotate(i/charging*80-80);
+					i++;
+					shape.setFill(Settings.secEraserColor);
+					shape.setRotate(i/charging*90-90);
+					shape.setStroke(Color.TRANSPARENT);
 				}
-				else if(i<=shooting) {
-					
-					shape.setRotate(((i-charging)/(shooting-charging))*(-80+360*3));
+				else if(!erase) {
+					shape.setFill(Settings.eraserColor);
+				}
+				else if(i<=shooting&&erase) {
+					i++;
+					shape.setFill(Settings.eraserColor);
+					shape.setRotate(((i-charging)/(shooting-charging))*(-90+360*5));
 					if(target!=null) {
 					attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
@@ -43,7 +59,7 @@ public class Eraser extends PlayerUnit implements AttackUnit {
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
 					if(target.isAlive()) {
-						target.decHP(5);
+						target.decHP(50);
 					}
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);
@@ -59,7 +75,8 @@ public class Eraser extends PlayerUnit implements AttackUnit {
 						retarget(unitHandler);
 					}
 				}
-				else {
+				else if(erase){
+					erase = false;
 					attackLine.setStroke(Color.TRANSPARENT);
 					i = 0;
 				}

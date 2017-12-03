@@ -66,7 +66,7 @@ public class GameUnit extends Unit {
 	}
 	
 	public void rescale() {
-		double frac = hp/maxHP/10*9+0.1;
+		double frac = hp/maxHP/5*4+0.2;
 		shape.setScaleX(frac);
 		shape.setScaleY(frac);
 	}

@@ -16,18 +16,21 @@ public class PlayHandler {
 	}
 
 	public void prepare() {
-		/*screen.getScene().setOnKeyReleased(e -> {
-			if (e.getCode() == KeyCode.ENTER)
-				play();
-		});
-		screen.getScene().setOnMouseClicked(e -> {
+		
+		/*screen.getScene().setOnMouseClicked(e -> {
 			if (e.getButton() == MouseButton.SECONDARY)
 				unitHandler.getSet(UnitHandler.SELECTED).stream().forEach(u -> u.move(e.getX(), e.getY()));
 		});*/
 
 		addUnits(PlayerUnit.TANKER);
 		addUnits(PlayerUnit.SHOOTER);
-		addUnits(PlayerUnit.ERASER);
+		Eraser er = new Eraser(screen.getHeight()/20);
+		screen.getScene().setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.E) {
+				er.erase();
+			}
+		});
+		addEraser(er);
 
 		// setting player unit attacking and moving
 		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen);
@@ -57,22 +60,15 @@ public class PlayHandler {
 				addUnit(u, i, numUnits, type);
 			}
 			break;
-		case PlayerUnit.ERASER:
-			if(Settings.eraserExists) {
-				u = new Eraser(screen.getHeight() / 25);
-				addEraser(u);
-			}
-			
 		}
 
 	}
-	public void addEraser(PlayerUnit u) {
+	public void addEraser(Eraser u) {
 		u.move(screen.getWidth()/2, screen.getHeight()/2);
-		unitHandler.addUnit(UnitHandler.PLAYER, u);
-		u.getShape().setOnMouseClicked(e -> unitClickHandler(e, u));
 		screen.addNode(u.getShape());
-		screen.addNode(u.getHighlight());
 		screen.addNode(u.getAttackLine());
+		u.setAttackAnimation(unitHandler, screen.getPane());
+		u.startAttackAnimation();
 	}
 	public void addUnit(PlayerUnit u, int i, int numUnits, int type) {
 
@@ -106,7 +102,6 @@ public class PlayHandler {
 		//screen.getPane().getChildren().remove(0);
 
 		// removing preparation mechanic
-		screen.getScene().setOnKeyReleased(null);
 
 		//score
 		

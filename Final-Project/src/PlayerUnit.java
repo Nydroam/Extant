@@ -1,5 +1,4 @@
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -73,9 +72,9 @@ public class PlayerUnit extends GameUnit {
 	public void setMoveAnimation(double width, double height) {
 		PlayerUnit t = this;
 		moveAnim = new AnimationTimer() {
-			int i = 0;
+	
 			public void handle(long now) {
-				i++;
+				
 				//healing
 				if(t instanceof Tanker)
 					t.incHP(1);

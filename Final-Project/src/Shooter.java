@@ -33,9 +33,9 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		attackAnim = new AnimationTimer() {
-			int i = 0;
+			
 			public void handle(long now) {
-				i++;
+		
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
 					attackLine.toBack();
 					attackLine.setStroke(color);
