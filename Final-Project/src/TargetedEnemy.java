@@ -1,7 +1,5 @@
 import java.util.Comparator;
 
-import javafx.scene.paint.Color;
-
 public class TargetedEnemy extends Enemy{
 	public TargetedEnemy(double r) {
 		super(r);
