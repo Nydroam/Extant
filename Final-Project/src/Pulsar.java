@@ -23,8 +23,8 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 						Math.sin(4 * Math.PI / 5) * radius, -1 * Math.cos(Math.PI / 5) * radius,
 						Math.sin(2 * Math.PI / 5) * radius, Math.cos(2 * Math.PI / 5) * radius });
 		shape.setFill(color);
-		speed = 1;
-		maxHP = 1000;
+		speed = 2;
+		maxHP = 300;
 		attackRange = new Circle(radius * 3);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(1);
@@ -46,7 +46,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 		attackRange.setLayoutX(xPos);
 		attackRange.setLayoutY(yPos);
 	}
-
+	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		attackAnim = new AnimationTimer() {
 			int i = 0;
@@ -85,7 +85,10 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 
 						if (attackRange.contains(u.getX() - xPos, u.getY() - yPos)) {
 							if (u.isAlive()) {
-								u.decHP(5);
+								if(u instanceof Tanker)
+									u.decHP(20);
+								else
+									u.decHP(5);
 							} else {
 								deadUnits.add(u);
 							}
@@ -104,7 +107,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 					attackRange.setFill(color);
 
 				} else {
-
+					attackRange.setStroke(Color.TRANSPARENT);
 					i = 0;
 				}
 			}

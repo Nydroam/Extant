@@ -15,7 +15,7 @@ public class EnemyUnit extends GameUnit{
 					yDist = speed*yDist/dist;
 					//System.out.println("BEFORE:" + xPos);
 					//System.out.println("DIFF:" + xDist);
-					if(dist>getAttackRange().getRadius())
+					if(dist>getAttackRange().getRadius()/3*2)
 						move(shape.getLayoutX()+xDist,shape.getLayoutY()+yDist);
 					//System.out.println("AFTER:" + xPos);
 				}

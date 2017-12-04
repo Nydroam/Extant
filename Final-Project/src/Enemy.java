@@ -13,7 +13,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		radius = r;
 		color = Settings.enemyColor;
 		shape = new Rectangle(r*2,r*2);
-		speed = 4;
+		speed = 3;
 		shape.setFill(color);
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();

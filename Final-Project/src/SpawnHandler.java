@@ -1,9 +1,10 @@
+import java.util.HashSet;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import screen.Screen;
 
 public class SpawnHandler {
@@ -11,8 +12,8 @@ public class SpawnHandler {
 	private AnimationTimer spawnTimer;
 	private UnitHandler unitHandler;
 	private Screen screen;
-	private Text[] warnings;
-	private Text scoreText;
+	private HashSet<Text> warnings;
+	private int wave;
 	
 	public SpawnHandler(UnitHandler u, Screen s) {
 		unitHandler = u;
@@ -20,7 +21,7 @@ public class SpawnHandler {
 	}
 	
 	public void setupTimer() {
-		scoreText = new Text(Settings.score+"");
+		/*scoreText = new Text(Settings.score+"");
 		scoreText.setMouseTransparent(true);
 		scoreText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/15));
 		scoreText.setTextAlignment(TextAlignment.CENTER);
@@ -29,34 +30,47 @@ public class SpawnHandler {
 		scoreText.setWrappingWidth(screen.getWidth());
 		scoreText.setFill(Color.TRANSPARENT);
 		scoreText.setStroke(Color.TRANSPARENT);
-		screen.addNode(scoreText);
-		warnings = new Text[Settings.numEnemies];
-		for(int i = 0; i < warnings.length; i++) {
-			warnings[i] = new Text("!");
-			warnings[i].setFill(Color.TRANSPARENT);
-			warnings[i].setStroke(Color.TRANSPARENT);
-			warnings[i].setFont(Font.font("Times New Roman",FontWeight.BOLD,screen.getHeight()/15));
-			screen.addNode(warnings[i]);
+		screen.addNode(scoreText);*/
+		wave = 0;
+		Settings.numEnemies = 3 * Settings.diff;
+		warnings = new HashSet<Text>();
+		for(int i = 0; i < Settings.numEnemies; i++) {
+			Text next = new Text("!");
+			next.setFill(Color.TRANSPARENT);
+			next.setStroke(Color.TRANSPARENT);
+			next.setFont(Font.font("Times New Roman",FontWeight.BOLD,screen.getHeight()/15));
+			screen.addNode(next);
+			warnings.add(next);
 		}
 		spawnTimer = new AnimationTimer() {
 			int i = 0;
+			
 			boolean gaveWarning = false;
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>100&&!gaveWarning) {
+				if(i>700&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>200) {
-					scoreText.setStroke(Color.TRANSPARENT);
-					for(int i = 0; i < warnings.length; i++)
-						warnings[i].setFill(Color.TRANSPARENT);
+				if(i>1000) {
+					//scoreText.setStroke(Color.TRANSPARENT);
+					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);
 					i = 0;
 					gaveWarning = false;
+					wave++;
+					if(wave%(10-Settings.diff)==0) {
+						Text next = new Text("!");
+						next.setFill(Color.TRANSPARENT);
+						next.setStroke(Color.TRANSPARENT);
+						next.setFont(Font.font("Times New Roman",FontWeight.BOLD,screen.getHeight()/15));
+						screen.addNode(next);
+						warnings.add(next);
+					}
 				}
+				
 				i++;
 			}
 		};
@@ -70,36 +84,44 @@ public class SpawnHandler {
 	}
 	
 	public void giveWarning(int direction) {
-		scoreText.setText(""+Settings.score);
-		scoreText.setStroke(Color.BLACK);
-		for(int i = 0; i < warnings.length; i++) {
-			warnings[i].setFill(Color.RED);
+		//scoreText.setText(""+Settings.score);
+		//scoreText.setStroke(Color.BLACK);
+		int i = 0;
+		for(Text t:warnings) {
+			t.setFill(Settings.warningColor);
 			if(direction == 0) {
-				warnings[i].setX(screen.getHeight()/25);
-				warnings[i].setY((i+1)*screen.getHeight()/(warnings.length+1));
+				t.setX(screen.getHeight()/25);
+				t.setY((i+1)*screen.getHeight()/(warnings.size()+1));
 			}
 			if(direction == 1) {
-				warnings[i].setX(screen.getWidth()-screen.getHeight()*2/25);
-				warnings[i].setY((i+1)*screen.getHeight()/(warnings.length+1));
+				t.setX(screen.getWidth()-screen.getHeight()*2/25);
+				t.setY((i+1)*screen.getHeight()/(warnings.size()+1));
 			}
 			if(direction == 2) {
-				warnings[i].setX((i+1)*screen.getWidth()/(warnings.length+1));
-				warnings[i].setY(screen.getHeight()*2/25);
+				t.setX((i+1)*screen.getWidth()/(warnings.size()+1));
+				t.setY(screen.getHeight()*2/25);
 			}
 			if(direction == 3) {
-				warnings[i].setX((i+1)*screen.getWidth()/(warnings.length+1));
-				warnings[i].setY(screen.getHeight()*24/25);
+				t.setX((i+1)*screen.getWidth()/(warnings.size()+1));
+				t.setY(screen.getHeight()*24/25);
 			}
-		}
+			i++;
+		};
+		
 	}
 	
 	public void spawnUnits(int direction) {
-		for(int i = 0; i < Settings.numEnemies; i++) {
+		for(int i = 0; i < warnings.size(); i++) {
 			EnemyUnit e = new Enemy(screen.getHeight()/50);
 			double rand = Math.random();
-			//if(Math.random()<=0.5)
+			double rate = 0.01*Settings.diff*wave;
+			if(rate>0.33)
+				rate = 0.33;
+			if(rand<=rate)
 				e = new Pulsar(screen.getHeight()/50);
-			//if(Math.random()>=0.8)
+			else if(rand>rate&&rand<rate*2)
+				e = new Tracker(screen.getHeight()/50);
+			//else if(Math.random() <=0.5)
 				//e = new TargetedEnemy(screen.getHeight()/50);
 			if(direction == 0) //left
 				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));

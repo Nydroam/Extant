@@ -29,6 +29,11 @@ public class PlayHandler {
 			if (e.getCode() == KeyCode.E) {
 				er.erase();
 			}
+			if(e.getCode() == KeyCode.ENTER) {
+				unitHandler.clearAll();
+				manager.setScore();
+				spawn.stopTimer();
+			}
 		});
 		addEraser(er);
 

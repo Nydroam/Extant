@@ -14,8 +14,8 @@ public class Driver extends Application {
 	public void start(Stage primaryStage) {
 		
 		//Making the Application FullScreen
-		//primaryStage.setFullScreen(true);
-		//primaryStage.setFullScreenExitHint("");
+		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitHint("");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	

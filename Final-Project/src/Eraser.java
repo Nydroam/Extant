@@ -32,7 +32,7 @@ public class Eraser extends GameUnit implements AttackUnit {
 		attackAnim = new AnimationTimer() {
 			
 			int i = 0;
-			double charging=100.0;
+			double charging=3000.0;
 			double shooting=charging + 500.0;
 			public void handle(long now) {
 				shape.toBack();
@@ -59,7 +59,7 @@ public class Eraser extends GameUnit implements AttackUnit {
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
 					if(target.isAlive()) {
-						target.decHP(50);
+						target.decHP(15);
 					}
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);

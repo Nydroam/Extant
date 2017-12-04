@@ -5,14 +5,14 @@ import javafx.scene.paint.Color;
 public class TargetedEnemy extends Enemy{
 	public TargetedEnemy(double r) {
 		super(r);
-		color = Color.RED;
+		color = Settings.tankerColor;
 		shape.setFill(color);
 		attackRange.setRadius(radius*6);
 		
 	}
 	public void retarget(UnitHandler unitHandler) {
 		if(!unitHandler.getSet(UnitHandler.PLAYER).isEmpty()) {
-		target = unitHandler.getSet(UnitHandler.PLAYER).stream().filter(u->u instanceof Shooter).
+		target = unitHandler.getSet(UnitHandler.PLAYER).stream().filter(u->u instanceof Tanker).
 				min( new Comparator<GameUnit>() {
 			public int compare(GameUnit a, GameUnit b) {
 				double dist1 = Math.sqrt(Math.pow(a.getX()-xPos,2)+Math.pow(a.getY()-yPos, 2));
