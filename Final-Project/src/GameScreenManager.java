@@ -14,7 +14,7 @@ public class GameScreenManager extends ScreenManager {
 		String text = "This is the game Blahdiblah.\n\n";
 		text += "Click on a circle to select it. Click and drag to select more than one at once.\n\n";
 		text += "Use WASD to move selected Units.\n\n";
-		text += "Press ENTER while ingame to end the session early.\n\n";
+		text += "Press ESC while ingame to end the session early.\n\n";
 		text += "You can change the number of units you have and difficulty in settings. \n\n";
 		s.addText(width / 8, height / 6, width / 5 * 3, height / 25, false, text);
 		return s;
@@ -26,6 +26,7 @@ public class GameScreenManager extends ScreenManager {
 		SettingManager sm= new SettingManager(s);
 		sm.setTop();
 		sm.setMid();
+		sm.setBot();
 		return s;
 		
 		
@@ -45,7 +46,7 @@ public class GameScreenManager extends ScreenManager {
 	public Screen setScore() {
 		Screen s = super.setScore();
 		s.addText(0, height/4, width, height/10, true, "SCORE");
-		s.addText(0, height/2, width, height/5, true, ""+Settings.score);
+		s.addText(0, height/7*4, width, height/5, true, ""+Settings.score);
 		return s;
 	}
 }

@@ -57,7 +57,7 @@ public class GameUnit extends Unit {
 		target = u;
 	}
 	
-	public void decHP(int h) {
+	public void decHP(double h) {
 		hp -= h;
 		if(hp<=0)
 			isAlive = false;
@@ -71,7 +71,7 @@ public class GameUnit extends Unit {
 		shape.setScaleY(frac);
 	}
 	
-	public void incHP(int h) {
+	public void incHP(double h) {
 		if(isAlive) {
 			if(hp+h>=maxHP)
 				hp = (int)maxHP;

@@ -1,10 +1,14 @@
+import java.util.ArrayList;
 import java.util.Stack;
+
+import org.w3c.dom.css.Rect;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -17,7 +21,7 @@ public class SettingManager {
 	Screen screen;
 	double width;
 	double height;
-	
+	ArrayList<Color> colorList;
 	
 	public SettingManager(Screen s) {
 		screen = s;
@@ -36,6 +40,38 @@ public class SettingManager {
 		setDiffSetting(1,circles);
 		setDiffSetting(2, circles);
 		setDiffSetting(3, circles);
+	}
+	public void setBot() {
+		colorList = new ArrayList<>();
+		colorList.add(Settings.backgroundColor);
+		colorList.add(Settings.foregroundColor);
+		colorList.add(Settings.tankerColor);
+		colorList.add(Settings.shooterColor);
+		colorList.add(Settings.secShooterColor);
+		colorList.add(Settings.eraserColor);
+		colorList.add(Settings.secEraserColor);
+		colorList.add(Settings.enemyColor);
+		colorList.add(Settings.trackerColor);
+		colorList.add(Settings.pulsarColor);
+		colorList.add(Settings.secPulsarColor);
+		colorList.add(Settings.warningColor);
+		double h = height/4*3;
+		double w = width/5;
+		double s = width/5*2/(colorList.size());
+		for(int i = 0; i < colorList.size(); i++) {
+			Rectangle r = new Rectangle(w+s*i,h,s,s);
+			r.setFill(colorList.get(i));
+			screen.addNode(r);
+		}
+		Polygon u = triangleButton(true);
+		Polygon p = triangleButton(false);
+		u.setLayoutX(w*3+s);
+		u.setLayoutY(h);
+		p.setLayoutX(w*3+s);
+		p.setLayoutY(h+s);
+		screen.addNode(u);
+		screen.addNode(p);
+		
 	}
 	
 	public void setDiffSetting(int i, Circle[] circles) {

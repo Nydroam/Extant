@@ -33,18 +33,33 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		attackAnim = new AnimationTimer() {
-			
+			int close = 0;
 			public void handle(long now) {
 		
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
+					Circle inRange = new Circle();
+					inRange.setRadius(attackRange.getRadius()/2);
+					inRange.setLayoutX(attackRange.getLayoutX());
+					inRange.setLayoutY(attackRange.getLayoutY());
+					unitHandler.getSet(UnitHandler.PLAYER).stream().filter(u->u instanceof Shooter&&
+						inRange.contains(u.getX()-xPos,u.getY()-yPos)
+						).forEach(u->close++);
 					attackLine.toBack();
-					attackLine.setStroke(color);
+					if(close>2)
+						attackLine.setStroke(Settings.secShooterColor);
+					else
+						attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
 					attackLine.setStartY(yPos);
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
+					//System.out.println(close);
 					if(target.isAlive()) {
-						target.decHP(1);
+						if(close<=0) {}
+						else if(close==1)
+							target.decHP(1.5);
+						else
+							target.decHP(1/(close-1));
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange());
@@ -52,6 +67,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 						target.stopMoveAnimation();
 						attackLine.setStroke(Color.TRANSPARENT);
 					}}
+					close = 0;
 						retarget(unitHandler);
 				}
 				else {

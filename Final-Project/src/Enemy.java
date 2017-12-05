@@ -18,7 +18,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(10);
-		maxHP = 50;
+		maxHP = 100;
 		setup();
 	}
 	public void setup() {

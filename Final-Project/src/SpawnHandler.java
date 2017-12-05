@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import screen.Screen;
 
 public class SpawnHandler {
@@ -14,6 +15,7 @@ public class SpawnHandler {
 	private Screen screen;
 	private HashSet<Text> warnings;
 	private int wave;
+	private Text waveText;
 	
 	public SpawnHandler(UnitHandler u, Screen s) {
 		unitHandler = u;
@@ -21,16 +23,16 @@ public class SpawnHandler {
 	}
 	
 	public void setupTimer() {
-		/*scoreText = new Text(Settings.score+"");
-		scoreText.setMouseTransparent(true);
-		scoreText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/15));
-		scoreText.setTextAlignment(TextAlignment.CENTER);
-		scoreText.setStrokeWidth(1);
-		scoreText.setY(screen.getHeight()/2+screen.getHeight()/45);
-		scoreText.setWrappingWidth(screen.getWidth());
-		scoreText.setFill(Color.TRANSPARENT);
-		scoreText.setStroke(Color.TRANSPARENT);
-		screen.addNode(scoreText);*/
+		waveText = new Text(wave+"");
+		waveText.setMouseTransparent(true);
+		waveText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/15));
+		waveText.setTextAlignment(TextAlignment.CENTER);
+		waveText.setStrokeWidth(1);
+		waveText.setY(screen.getHeight()/2+screen.getHeight()/45);
+		waveText.setWrappingWidth(screen.getWidth());
+		waveText.setFill(Color.TRANSPARENT);
+		waveText.setStroke(Color.TRANSPARENT);
+		screen.addNode(waveText);
 		wave = 0;
 		Settings.numEnemies = 3 * Settings.diff;
 		warnings = new HashSet<Text>();
@@ -49,19 +51,19 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>700&&!gaveWarning) {
+				if(i>700-Settings.diff*50&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>1000) {
-					//scoreText.setStroke(Color.TRANSPARENT);
+				if(i>1000-Settings.diff*50) {
+					//waveText.setStroke(Color.TRANSPARENT);
 					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);
 					i = 0;
 					gaveWarning = false;
 					wave++;
-					if(wave%(10-Settings.diff)==0) {
+					if(wave%5==0) {
 						Text next = new Text("!");
 						next.setFill(Color.TRANSPARENT);
 						next.setStroke(Color.TRANSPARENT);
@@ -84,8 +86,8 @@ public class SpawnHandler {
 	}
 	
 	public void giveWarning(int direction) {
-		//scoreText.setText(""+Settings.score);
-		//scoreText.setStroke(Color.BLACK);
+		waveText.setText(""+wave);
+		waveText.setStroke(Color.BLACK);
 		int i = 0;
 		for(Text t:warnings) {
 			t.setFill(Settings.warningColor);

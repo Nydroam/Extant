@@ -78,6 +78,9 @@ public class PlayerUnit extends GameUnit {
 				//healing
 				if(t instanceof Tanker)
 					t.incHP(1);
+				else {
+					t.incHP(0.2);
+				}
 				
 				
 				if(vertical) {

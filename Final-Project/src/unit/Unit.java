@@ -5,7 +5,7 @@ import javafx.scene.shape.Shape;
 public class Unit {
 	
 	protected Shape shape;
-	protected int hp;
+	protected double hp;
 	protected double xPos;
 	protected double yPos;
 	
@@ -24,7 +24,7 @@ public class Unit {
 		return shape;
 	}
 	
-	public int getHP() {
+	public double getHP() {
 		return hp;
 	}
 	

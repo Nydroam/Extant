@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import screen.ScreenManager;
@@ -16,6 +17,7 @@ public class Driver extends Application {
 		//Making the Application FullScreen
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	
