@@ -25,7 +25,6 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		super.setup();
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
-		///attackRange.setStroke(Color.BLACK);
 	}
 	public void decHP(int h) {
 		super.decHP(h);

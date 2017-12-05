@@ -52,6 +52,7 @@ public class ScreenManager {
 	}
 	
 	public Screen setMenu() {
+		
 		Screen s = new Screen(scene);
 		//Play Button
 		s.addButton(width/2-buttonWidth/2,height/9*4,buttonWidth,buttonHeight,"Play", e-> {

@@ -1,10 +1,10 @@
-import java.util.ArrayList;
 import java.util.Stack;
 
-import org.w3c.dom.css.Rect;
-
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -21,12 +21,24 @@ public class SettingManager {
 	Screen screen;
 	double width;
 	double height;
-	ArrayList<Color> colorList;
+	Color[] colorList;
+	
+	
 	
 	public SettingManager(Screen s) {
 		screen = s;
 		width = s.getWidth();
 		height = s.getHeight();
+	}
+	
+	public void setAll() {
+		Button b = (Button)screen.getPane().getChildren().get(0);
+		screen.getPane().getChildren().clear();
+		screen.getPane().setBackground(new Background(new BackgroundFill(Settings.backgroundColor, null, null)));
+		screen.addNode(b);
+		setTop();
+		setMid();
+		setBot();
 	}
 	
 	public void setTop(){
@@ -42,25 +54,14 @@ public class SettingManager {
 		setDiffSetting(3, circles);
 	}
 	public void setBot() {
-		colorList = new ArrayList<>();
-		colorList.add(Settings.backgroundColor);
-		colorList.add(Settings.foregroundColor);
-		colorList.add(Settings.tankerColor);
-		colorList.add(Settings.shooterColor);
-		colorList.add(Settings.secShooterColor);
-		colorList.add(Settings.eraserColor);
-		colorList.add(Settings.secEraserColor);
-		colorList.add(Settings.enemyColor);
-		colorList.add(Settings.trackerColor);
-		colorList.add(Settings.pulsarColor);
-		colorList.add(Settings.secPulsarColor);
-		colorList.add(Settings.warningColor);
+	
+		colorList = Settings.currentPalette;
 		double h = height/4*3;
 		double w = width/5;
-		double s = width/5*2/(colorList.size());
-		for(int i = 0; i < colorList.size(); i++) {
+		double s = width/5*2/(colorList.length);
+		for(int i = 0; i < colorList.length; i++) {
 			Rectangle r = new Rectangle(w+s*i,h,s,s);
-			r.setFill(colorList.get(i));
+			r.setFill(colorList[i]);
 			screen.addNode(r);
 		}
 		Polygon u = triangleButton(true);
@@ -72,17 +73,31 @@ public class SettingManager {
 		screen.addNode(u);
 		screen.addNode(p);
 		
+		u.setOnMouseClicked(e->{
+			Settings.paletteIndex++;
+			if(Settings.paletteIndex>=Settings.colorPalettes.size())
+				Settings.paletteIndex=0;
+			Settings.setPalette();
+			setAll();
+		});
+		p.setOnMouseClicked(e->{
+			Settings.paletteIndex--;
+			if(Settings.paletteIndex<0)
+				Settings.paletteIndex=Settings.colorPalettes.size()-1;
+			Settings.setPalette();
+			setAll();
+		});
 	}
 	
 	public void setDiffSetting(int i, Circle[] circles) {
 		Circle invis;
 		Text diffText;
 		invis = unitCircle(Color.TRANSPARENT);
-		invis.setStrokeWidth(5);
+		invis.setStrokeWidth(7);
 		
 		invis.setStroke(Color.TRANSPARENT);
 		if(Settings.diff==i)
-			invis.setStroke(Color.BLACK);
+			invis.setStroke(Settings.warningColor);
 		invis.setCenterX(i*width/5);
 		invis.setCenterY(2*height/4);
 		circles[i-1]=invis;
@@ -104,7 +119,7 @@ public class SettingManager {
 				for(Circle c: circles) {
 					c.setStroke(Color.TRANSPARENT);
 				}
-				invis.setStroke(Color.BLACK);
+				invis.setStroke(Settings.warningColor);
 				Settings.diff = i;
 			}
 		});
@@ -232,7 +247,7 @@ public class SettingManager {
 	}
 	public Circle unitCircle(Color c) {
 		Circle circle = new Circle();
-		circle.setStroke(Color.BLACK);
+		circle.setStroke(Settings.foregroundColor);
 		circle.setRadius(height/25);
 		circle.setFill(c);
 		return circle;

@@ -56,7 +56,7 @@ public class PlayerUnit extends GameUnit {
 			selected = true;
 			highlight.setStroke(color);
 			if(attackRange!=null)
-				attackRange.setStroke(Color.BLACK);
+				attackRange.setStroke(Settings.foregroundColor);
 		}
 	}
 	

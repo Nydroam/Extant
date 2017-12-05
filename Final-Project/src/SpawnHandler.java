@@ -27,7 +27,7 @@ public class SpawnHandler {
 		waveText.setMouseTransparent(true);
 		waveText.setFont(Font.font("Comic Sans", FontWeight.EXTRA_BOLD, screen.getHeight()/15));
 		waveText.setTextAlignment(TextAlignment.CENTER);
-		waveText.setStrokeWidth(1);
+		
 		waveText.setY(screen.getHeight()/2+screen.getHeight()/45);
 		waveText.setWrappingWidth(screen.getWidth());
 		waveText.setFill(Color.TRANSPARENT);
@@ -87,7 +87,7 @@ public class SpawnHandler {
 	
 	public void giveWarning(int direction) {
 		waveText.setText(""+wave);
-		waveText.setStroke(Color.BLACK);
+		waveText.setFill(Settings.foregroundColor);
 		int i = 0;
 		for(Text t:warnings) {
 			t.setFill(Settings.warningColor);

@@ -24,7 +24,7 @@ public class GameUnit extends Unit {
 	// setup
 	public void setup() {
 		shape.setFill(color);
-		shape.setStroke(Color.BLACK);
+		shape.setStroke(Settings.foregroundColor);
 
 		isAlive = true;
 		hp = (int)maxHP;

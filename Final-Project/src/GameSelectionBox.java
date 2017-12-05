@@ -11,6 +11,7 @@ public class GameSelectionBox extends SelectionBox{
 	public GameSelectionBox(Scene s, UnitHandler u) {
 		super(s);
 		unitHandler = u;
+		selectionBox.setStroke(Settings.foregroundColor);
 	}
 	
 	public void onMousePressedHandler(MouseEvent e) {
@@ -23,6 +24,7 @@ public class GameSelectionBox extends SelectionBox{
 	public void onMouseDraggedHandler(MouseEvent e) {
 		super.onMouseDraggedHandler(e);
 		if (e.getButton() == MouseButton.PRIMARY) {
+			selectionBox.setStroke(Settings.foregroundColor);
 			unitHandler.getSet(UnitHandler.PLAYER).stream()
 			.forEach( u-> {
 				if(selectionBox.contains(new Point2D(u.getX(),u.getY()))) {

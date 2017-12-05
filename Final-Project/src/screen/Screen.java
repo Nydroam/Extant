@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -69,8 +70,9 @@ public class Screen {
 	
 	
 	//Add text to the pane at a certain position with given parameters 
-	public void addText(double x, double y, double w, double h, boolean center, String text) {
+	public void addText(double x, double y, double w, double h, boolean center, String text, Color c) {
 		Text t = new Text();
+		t.setFill(c);
 		t.setX(x);
 		t.setY(y);
 		t.setWrappingWidth(w);

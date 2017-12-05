@@ -33,7 +33,6 @@ public class Tracker extends EnemyUnit implements AttackUnit {
 		super.setup();
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
-		//attackRange.setFill(Color.BLACK);
 		rotate = new Rotate();
 		
 		shape.getTransforms().add(rotate);
@@ -50,7 +49,7 @@ public class Tracker extends EnemyUnit implements AttackUnit {
 				i++;
 				if(target!=null&&target.isAlive()) {
 					
-					attackLine.setStroke(Color.BLACK);
+					attackLine.setStroke(Settings.foregroundColor);
 					attackLine.setStartX(shape.getLayoutX());
 					attackLine.setStartY(shape.getLayoutY());
 					attackLine.setEndX(target.getX());
