@@ -10,13 +10,14 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 	public Shooter(double r) {
 		radius = r;
 		color = Settings.shooterColor;
+		secColor = Settings.secShooterColor;
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(5);
-		maxHP = 500;
-		speed = 3;
+		maxHP = 1000;
+		speed = 4;
 		setup();
 	}
 	public void move(double x, double y) {
@@ -38,15 +39,15 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
 					Circle inRange = new Circle();
-					inRange.setRadius(attackRange.getRadius()/2);
+					inRange.setRadius(attackRange.getRadius()/3);
 					inRange.setLayoutX(attackRange.getLayoutX());
 					inRange.setLayoutY(attackRange.getLayoutY());
 					unitHandler.getSet(UnitHandler.PLAYER).stream().filter(u->u instanceof Shooter&&
 						inRange.contains(u.getX()-xPos,u.getY()-yPos)
 						).forEach(u->close++);
 					attackLine.toBack();
-					if(close>2)
-						attackLine.setStroke(Settings.secShooterColor);
+					if(close>=2)
+						attackLine.setStroke(secColor);
 					else
 						attackLine.setStroke(color);
 					attackLine.setStartX(xPos);
@@ -59,7 +60,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 						else if(close==1)
 							target.decHP(1.5);
 						else
-							target.decHP(1/(close-1));
+							target.decHP(1/(close+1.0));
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.ENEMY, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange());

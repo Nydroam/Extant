@@ -7,6 +7,7 @@ public class EnemyUnit extends GameUnit{
 		speed += 1;
 		
 		color = Settings.eraserColor;
+		secColor = Settings.secEraserColor;
 		shape.setFill(color);
 		if(attackLine!=null)
 			attackLine.setStroke(color);

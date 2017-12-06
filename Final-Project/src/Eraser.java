@@ -12,6 +12,7 @@ public class Eraser extends GameUnit implements AttackUnit {
 	public Eraser(double r) {
 		radius = r;
 		color = Settings.eraserColor;
+		secColor = Settings.secEraserColor;
 		shape = new Circle(radius);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(10);
@@ -28,11 +29,11 @@ public class Eraser extends GameUnit implements AttackUnit {
 	
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		
-		shape.setRotationAxis(new Point3D(0,1,0));
+		shape.setRotationAxis(new Point3D(1,0,0));
 		attackAnim = new AnimationTimer() {
 			
 			int i = 0;
-			double charging=3000.0;
+			double charging=5000.0;
 			double shooting=charging + 500.0;
 			public void handle(long now) {
 				shape.toBack();
@@ -41,16 +42,16 @@ public class Eraser extends GameUnit implements AttackUnit {
 				
 				if(i<=charging) {//charge up state
 					i++;
-					shape.setFill(Settings.secEraserColor);
+					shape.setFill(secColor);
 					shape.setRotate(i/charging*90-90);
 					shape.setStroke(Color.TRANSPARENT);
 				}
 				else if(!erase) {
-					shape.setFill(Settings.eraserColor);
+					shape.setFill(color);
 				}
 				else if(i<=shooting&&erase) {
 					i++;
-					shape.setFill(Settings.eraserColor);
+					shape.setFill(color);
 					shape.setRotate(((i-charging)/(shooting-charging))*(-90+360*5));
 					if(target!=null) {
 					attackLine.setStroke(color);

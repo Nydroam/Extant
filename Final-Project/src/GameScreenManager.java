@@ -2,6 +2,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.shape.Circle;
 import screen.Screen;
 import screen.ScreenManager;
 public class GameScreenManager extends ScreenManager {
@@ -27,12 +28,38 @@ public class GameScreenManager extends ScreenManager {
 		// Help Text
 		colorButtons(s);
 		//s.getPane().setBackground(new Background(new BackgroundFill(Settings.backgroundColor, null, null)));
-		String text = "This is the game Blahdiblah.\n\n";
-		text += "Click on a circle to select it. Click and drag to select more than one at once.\n\n";
-		text += "Use WASD to move selected Units.\n\n";
-		text += "Press ESC while ingame to end the session early.\n\n";
-		text += "You can change the number of units you have and difficulty in settings. \n\n";
-		s.addText(width / 8, height / 6, width / 5 * 3, height / 25, false, text, Settings.foregroundColor);
+		
+		String text = "\n\n";
+		text += "These are your units\n\n";
+		text += "shoots the closest enemy\n\n";
+		text += "takes damage well\n\n";
+		text += "shoots all enemies\n\n";
+		text += "Polygons are your enemies";
+		
+		s.addText(width / 6, height / 6, width / 3, height / 25, false, text, Settings.foregroundColor);
+		text = "\n\n";
+		text +="Click to select a unit\n\n";
+		text +="Click and drag to select more\n\n";
+		text += "WASD to move selected units\n\n";
+		text += "E shoots all enemies\n\n";
+		text += "Survive for as long as possible";
+		
+		s.addText(width/2, height/6, width/3, height/25, false, text, Settings.foregroundColor);
+		Circle c = new Circle(height/25);
+		c.setFill(Settings.shooterColor);
+		c.setCenterX(width/10);
+		c.setCenterY(height/6+4*height/20);
+		s.addNode(c);
+		c = new Circle(height/25);
+		c.setFill(Settings.tankerColor);
+		c.setCenterX(width/10);
+		c.setCenterY(height/6+6*height/20);
+		s.addNode(c);
+		c = new Circle(height/25);
+		c.setFill(Settings.eraserColor);
+		c.setCenterX(width/10);
+		c.setCenterY(height/6+8*height/20);
+		s.addNode(c);
 		return s;
 	}
 

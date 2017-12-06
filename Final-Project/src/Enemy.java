@@ -18,16 +18,13 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(12);
-		maxHP = 50;
+		maxHP = 75;
 		setup();
 	}
 	public void setup() {
 		super.setup();
 		attackRange.setMouseTransparent(true);
 		attackRange.setFill(Color.TRANSPARENT);
-	}
-	public void decHP(int h) {
-		super.decHP(h);
 	}
 	public void move(double x, double y) {
 		xPos = x + ((Rectangle)shape).getWidth()/2.0;
@@ -41,9 +38,11 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
 		attackAnim = new AnimationTimer() {
 			int i = 0;
+			int close = 0;
 			public void handle(long now) {
-				i++;
+				
 				if(target!=null&&attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
+					i++;
 					shape.setRotate(i*3);
 					attackLine.toBack();
 					attackLine.setStroke(color);
@@ -51,8 +50,22 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 					attackLine.setStartY(yPos);
 					attackLine.setEndX(target.getX());
 					attackLine.setEndY(target.getY());
+					
+					Circle inRange = new Circle();
+					inRange.setRadius(attackRange.getRadius()/2);
+					inRange.setLayoutX(attackRange.getLayoutX());
+					inRange.setLayoutY(attackRange.getLayoutY());
+					unitHandler.getSet(UnitHandler.ENEMY).stream().filter(u->u instanceof Enemy&&
+						inRange.contains(u.getX()-xPos,u.getY()-yPos)
+						).forEach(u->close++);
+					
 					if(target.isAlive()) {
-						target.decHP(2);
+						if(close<=0) {}
+						else if(close==1)
+							target.decHP(2);
+						else {
+							target.decHP(close/(close+1.0));
+						}
 					if(!target.isAlive()) {
 						unitHandler.removeUnit(UnitHandler.PLAYER, target);
 						pane.getChildren().removeAll(target.getShape(),target.getAttackLine(),target.getAttackRange(),((PlayerUnit)target).getHighlight());
@@ -61,6 +74,7 @@ public class Enemy extends EnemyUnit implements AttackUnit{
 							target.stopAttackAnimation();
 						attackLine.setStroke(Color.TRANSPARENT);
 					}}
+					close = 0;
 						retarget(unitHandler);
 				}
 				else {

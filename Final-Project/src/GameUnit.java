@@ -9,6 +9,8 @@ public class GameUnit extends Unit {
 	// Visuals of Unit
 	
 	protected Color color;
+
+	Color secColor;
 	protected double radius;
 
 	protected int speed;

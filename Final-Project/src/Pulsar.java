@@ -10,10 +10,10 @@ import javafx.scene.transform.Rotate;
 
 public class Pulsar extends EnemyUnit implements AttackUnit {
 	Rotate rotate;
-
 	public Pulsar(double r) {
 		radius = r * 2;
 		color = Settings.pulsarColor;
+		secColor = Settings.secPulsarColor;
 		shape = new Polygon();
 		((Polygon) shape).getPoints()
 				.addAll(new Double[] { 0.0, radius, -1 * Math.sin(2 * Math.PI / 5) * radius,
@@ -76,7 +76,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 					attackRange.setStroke(color);
 					// attackRange.setFill(color.brighter());
 					// attackRange.setStroke(color.BLACK);
-					shape.setFill(Settings.secPulsarColor);
+					shape.setFill(secColor);
 
 				} else if (i <= warning2) {
 				} else if (i <= blast) {

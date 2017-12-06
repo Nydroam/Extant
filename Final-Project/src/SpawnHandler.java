@@ -51,13 +51,13 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>400-Settings.diff*100&&!gaveWarning) {
+				if(i>700-Settings.diff*100&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>600-Settings.diff*100) {
-					//waveText.setStroke(Color.TRANSPARENT);
+				if(i>900-Settings.diff*100) {
+					waveText.setFill(Color.TRANSPARENT);
 					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);
 					i = 0;
@@ -114,9 +114,18 @@ public class SpawnHandler {
 	
 	public void spawnUnits(int direction) {
 		for(int i = 0; i < warnings.size(); i++) {
-			EnemyUnit e = new Enemy(screen.getHeight()/50);
 			
-			double rand = Math.random();
+			double rand= Math.random();
+			EnemyUnit e = new Enemy(screen.getHeight()/50);
+			if(rand<.3)
+				e = new Sticker(screen.getHeight()/50);
+			if(wave%25==0&&wave>0&&i>=warnings.size()/2&&i<warnings.size()/2+wave/25) {
+				e = new Morpher(screen.getHeight()/25);
+			}else if(wave%25==0&&wave>0){
+				e = null;
+			}else {
+			
+			
 			for(int j = 0; j < wave/10; j++)
 				if(i==j)
 					e = new Pulsar(screen.getHeight()/50);
@@ -125,8 +134,12 @@ public class SpawnHandler {
 				if(i==j)
 					e = new Tracker(screen.getHeight()/50);
 			
+			rand= Math.random();
 			if(rand<wave/100.0)
 				e.setStronger();
+			}
+			if(e!=null) {
+			
 			if(direction == 0) //left
 				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(warnings.size()+1));
 			if(direction == 1) //right
@@ -145,6 +158,7 @@ public class SpawnHandler {
 			}
 			e.setMoveAnimation(screen.getWidth(), screen.getHeight());
 			e.startMoveAnimation();
+			}
 		}
 	};
 	

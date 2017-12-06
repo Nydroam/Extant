@@ -8,7 +8,7 @@ public class Tanker extends PlayerUnit{
 		shape = new Circle(radius);
 		highlight = new Circle(radius+5);
 		speed = 4;
-		maxHP = 2000;
+		maxHP = 3000;
 		setup();
 		
 	}

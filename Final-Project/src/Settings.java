@@ -51,8 +51,9 @@ public class Settings {
 			Color.YELLOW,
 			Color.ORANGE,
 			Color.GREEN,
-			Color.PURPLE,
+			
 			Color.MEDIUMPURPLE,
+			Color.PURPLE,
 			Color.RED 
 	};
 	public static Color[] neon = new Color[] {
