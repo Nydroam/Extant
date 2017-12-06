@@ -2,6 +2,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import screen.Screen;
+import screen.ScreenManager;
 
 public class PlayHandler {
 
@@ -26,16 +27,7 @@ public class PlayHandler {
 		addUnits(PlayerUnit.SHOOTER);
 		
 		Eraser er = new Eraser(screen.getHeight()/20);
-		screen.getScene().setOnKeyReleased(e -> {
-			if (e.getCode() == KeyCode.E && Settings.eraserExists) {
-				er.erase();
-			}
-			if(e.getCode() == KeyCode.ESCAPE) {
-				unitHandler.clearAll();
-				manager.setScore();
-				spawn.stopTimer();
-			}
-		});
+		
 		if(Settings.eraserExists)
 			addEraser(er);
 
@@ -46,7 +38,23 @@ public class PlayHandler {
 		GameSelectionBox selectionBox = new GameSelectionBox(screen.getScene(), unitHandler);
 		screen.getPane().getChildren().add(selectionBox.getBox());
 		selectionBox.setBoxEvents();
-		play();
+		// starting spawn
+		spawn = new SpawnHandler(unitHandler,screen);
+		unitHandler.setSpawnHandler(spawn);
+		spawn.setupTimer();
+		spawn.startTimer();
+		screen.getScene().setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.E && Settings.eraserExists) {
+				er.erase();
+			}
+			if(e.getCode() == KeyCode.ESCAPE) {
+				spawn.stopTimer();
+				unitHandler.getSet(UnitHandler.ENEMY).stream().filter(u->u instanceof AttackUnit).forEach(u->u.stopAttackAnimation());
+				unitHandler.clearAll();
+				manager.setState(ScreenManager.SCORE_STATE);
+				
+			}
+		});
 	}
 
 	public void addUnits(int type) {
@@ -104,20 +112,5 @@ public class PlayHandler {
 		
 	}
 
-	public void play() {
-		// Removing Screen Instruction Text
-		//screen.getPane().getChildren().remove(0);
 
-		// removing preparation mechanic
-
-		//score
-		
-		
-		// starting spawn
-		spawn = new SpawnHandler(unitHandler,screen);
-		unitHandler.setSpawnHandler(spawn);
-		spawn.setupTimer();
-		spawn.startTimer();
-
-	}
 }

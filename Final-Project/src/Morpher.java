@@ -27,7 +27,7 @@ public class Morpher extends EnemyUnit implements AttackUnit {
 		});
 		shape.setFill(color);
 		speed = 4;
-		maxHP = 1000;
+		maxHP = 1500;
 		attackRange = new Circle(radius * 6);
 		attackRange.setStroke(Settings.foregroundColor);
 		attackLine = new Line();

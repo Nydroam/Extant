@@ -56,12 +56,13 @@ public class UnitHandler {
 		switch(i) {
 			case PLAYER:
 				playerUnits.remove(u);
-		
+				selectedUnits.remove(u);
 				if(!playerUnits.stream().anyMatch(un->un instanceof AttackUnit)) {
-				
+					enemyUnits.stream().filter(un-> un instanceof AttackUnit).forEach(un->un.stopAttackAnimation());
+					spawn.stopTimer();
 					clearAll();
 					manager.setState(ScreenManager.SCORE_STATE);
-					spawn.stopTimer();
+					
 				}
 					
 				break;

@@ -145,9 +145,12 @@ public class SettingManager {
 			num = Settings.numShooters;
 			break;
 		case PlayerUnit.ERASER:
-			color = Settings.eraserColor;
-			if(!Settings.eraserExists)
+			
+			if(!Settings.eraserExists) {
 				num = 0;
+				color = Settings.secEraserColor;
+			}else
+				color = Settings.eraserColor;
 			break;
 		}
 		Stack<Circle> stack = new Stack<Circle>();

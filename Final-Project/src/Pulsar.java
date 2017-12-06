@@ -72,7 +72,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 				} else if (i <= warning) {
 					stopMoveAnimation();
 					attackRange.toBack();
-					attackRange.setRadius((i - charge) / (double) (warning - charge) * radius * 3);
+					attackRange.setRadius((i - charge) / (double) (warning - charge) * radius * 4);
 					attackRange.setStroke(color);
 					// attackRange.setFill(color.brighter());
 					// attackRange.setStroke(color.BLACK);

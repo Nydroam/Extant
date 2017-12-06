@@ -51,12 +51,12 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>700-Settings.diff*100&&!gaveWarning) {
+				if(i>600-Settings.diff*100&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>900-Settings.diff*100) {
+				if(i>800-Settings.diff*100) {
 					waveText.setFill(Color.TRANSPARENT);
 					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);
@@ -120,7 +120,7 @@ public class SpawnHandler {
 			if(rand<.3)
 				e = new Sticker(screen.getHeight()/50);
 			if(wave%25==0&&wave>0&&i>=warnings.size()/2&&i<warnings.size()/2+wave/25) {
-				e = new Morpher(screen.getHeight()/25);
+				e = new Morpher(screen.getHeight()/15);
 			}else if(wave%25==0&&wave>0){
 				e = null;
 			}else {

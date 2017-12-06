@@ -44,7 +44,7 @@ public class GameScreenManager extends ScreenManager {
 		text +="Click and drag to select more\n";
 		text += "WASD to move selected units\n\n";
 		text += "E shoots all enemies\n\n";
-		text += "ESC returns to main menu\n\n";
+		text += "ESC ends current game\n\n";
 		text += "Survive for as long as possible";
 		
 		s.addText(width/2, height/6, width/3, height/25, false, text, Settings.foregroundColor);
@@ -93,6 +93,7 @@ public class GameScreenManager extends ScreenManager {
 	
 	public Screen setScore() {
 		Screen s = super.setScore();
+		s.getScene().setOnKeyReleased(null);
 		colorButtons(s);
 		//s.getPane().setBackground(new Background(new BackgroundFill(Settings.backgroundColor, null, null)));
 		s.addText(0, height/4, width, height/10, true, "SCORE", Settings.foregroundColor);
