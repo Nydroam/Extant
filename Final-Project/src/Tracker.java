@@ -21,7 +21,7 @@ public class Tracker extends EnemyUnit implements AttackUnit {
 		}
 		);
 		shape.setFill(color);
-		speed = 5;
+		speed = 4;
 		maxHP = 250;
 		attackRange = new Circle(radius/2);
 		attackLine = new Line();
