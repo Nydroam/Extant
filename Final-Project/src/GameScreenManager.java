@@ -20,7 +20,7 @@ public class GameScreenManager extends ScreenManager {
 	}
 	public Screen setMenu() {
 		Screen s = super.setMenu();
-		String title = "BLAHDIBLAH";
+		String title = ":screen:";
 		s.addText(0,height/3,width,height/6,true,title, Settings.foregroundColor);
 		colorButtons(s);
 		return s;
@@ -35,7 +35,7 @@ public class GameScreenManager extends ScreenManager {
 		text += "These are your units\n\n";
 		text += "shoots the closest enemy\n\n";
 		text += "takes damage well\n\n";
-		text += "shoots all enemies\n\n";
+		text += "shoots enemies when charged\n\n";
 		text += "Polygons are your enemies";
 		
 		s.addText(width / 6, height / 6, width / 3, height / 25, false, text, Settings.foregroundColor);
@@ -43,7 +43,7 @@ public class GameScreenManager extends ScreenManager {
 		text +="Click to select a unit\n";
 		text +="Click and drag to select more\n";
 		text += "WASD to move selected units\n\n";
-		text += "E shoots all enemies\n\n";
+		text += "E shoots all enemies when ready\n\n";
 		text += "ESC ends current game\n\n";
 		text += "Survive for as long as possible";
 		

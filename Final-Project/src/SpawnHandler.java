@@ -51,12 +51,12 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>600-Settings.diff*100&&!gaveWarning) {
+				if(i>700-Settings.diff*100&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>800-Settings.diff*100) {
+				if(i>1000-Settings.diff*100) {
 					waveText.setFill(Color.TRANSPARENT);
 					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);

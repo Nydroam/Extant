@@ -99,34 +99,35 @@ public class Settings {
 			Color.web("#00C590"),//pulsar
 			Color.web("#65A8C4") //warning
 	};
-	public static Color[] lava = new Color[] {
-			Color.web("#F1B3B3"),
-			Color.web("#A12830"),
-			Color.web("#CA002A"),//tanker
-			Color.web("#FC3D32"),//shooter
-			Color.web("#E26E6E"),//shooter2
-			Color.web("#DB4E4E"),//eraser
-			Color.web("#FFED00"),//eraser2
-			Color.web("#F6465B"),//enemy
-			Color.web("#FF584F"),//tracker
-			Color.web("#F42941"),//pulsar2
-			Color.web("#FF1100"),//pulsar
-			Color.web("#002BC6") //warning
-	};
-	public static Color[] sweet = new Color[] {
-			Color.web("#F2D1BA"),
-			Color.web("#D2082D"),
-			Color.web("#FFB19E"),//tanker
-			Color.web("#D259C2"),//shooter
-			Color.web("#F78BD1"),//shooter2
-			Color.web("#F34093"),//eraser
-			Color.web("#FF7692"),//eraser2
-			Color.web("#CAAB71"),//enemy
-			Color.web("#9FC3E6"),//tracker
-			Color.web("#CAA8E6"),//pulsar2
-			Color.web("#A86FBA"),//pulsar
-			Color.web("#5E2728") //warning
-	};
 	
+	
+	public static Color[] gray = new Color[] {
+			Color.BLACK,
+			Color.WHITE,
+			Color.GRAY,
+			Color.LIGHTGRAY,
+			Color.WHITE,
+			Color.AZURE,
+			Color.DARKGRAY,
+			Color.WHITESMOKE,
+			Color.SLATEGRAY,
+			Color.LIGHTSLATEGRAY,
+			Color.DARKSLATEGRAY,
+			Color.WHITE
+	};
+	public static Color[] retro = new Color[] {
+			Color.web("#FFFFFF"),
+			Color.web("#000000"),
+			Color.web("#5555FF"),//tanker
+			Color.web("#FF5555"),//shooter
+			Color.web("#FFFF55"),//shooter2
+			Color.web("#AA00AA"),//eraser
+			Color.web("#FF55FF"),//eraser2
+			Color.web("#55FF55"),//enemy
+			Color.web("#AA5500"),//tracker
+			Color.web("#55FFFF"),//pulsar2
+			Color.web("#00AAAA"),//pulsar
+			Color.web("#AAAAAA") //warning
+	};
 	
 }
