@@ -20,6 +20,8 @@ public class GameScreenManager extends ScreenManager {
 	}
 	public Screen setMenu() {
 		Screen s = super.setMenu();
+		String title = "BLAHDIBLAH";
+		s.addText(0,height/3,width,height/6,true,title, Settings.foregroundColor);
 		colorButtons(s);
 		return s;
 	}
@@ -38,10 +40,11 @@ public class GameScreenManager extends ScreenManager {
 		
 		s.addText(width / 6, height / 6, width / 3, height / 25, false, text, Settings.foregroundColor);
 		text = "\n\n";
-		text +="Click to select a unit\n\n";
-		text +="Click and drag to select more\n\n";
+		text +="Click to select a unit\n";
+		text +="Click and drag to select more\n";
 		text += "WASD to move selected units\n\n";
 		text += "E shoots all enemies\n\n";
+		text += "ESC returns to main menu\n\n";
 		text += "Survive for as long as possible";
 		
 		s.addText(width/2, height/6, width/3, height/25, false, text, Settings.foregroundColor);
