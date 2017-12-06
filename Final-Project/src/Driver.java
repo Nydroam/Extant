@@ -35,8 +35,10 @@ public class Driver extends Application {
 		Settings.colorPalettes.add(Settings.neon);
 		Settings.colorPalettes.add(Settings.warm);
 		Settings.colorPalettes.add(Settings.cool);
-		Settings.currentPalette = Settings.original;
+		Settings.colorPalettes.add(Settings.lava);
+		Settings.colorPalettes.add(Settings.sweet);
 		Settings.paletteIndex = 0;
+		Settings.setPalette();
 		//BEGIN
 		manage.setState(ScreenManager.MENU_STATE);
 	

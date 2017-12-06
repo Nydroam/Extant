@@ -43,7 +43,7 @@ public class Settings {
 	}
 	public static Color[] original = new Color[] {
 			Color.WHITE,
-			Color.BLACK,
+			Color.LIGHTSLATEGRAY,
 			Color.BLUE,
 			Color.RED,
 			Color.BLANCHEDALMOND,
@@ -57,18 +57,18 @@ public class Settings {
 	};
 	public static Color[] neon = new Color[] {
 			Color.BLACK,
-			Color.WHITE,
-			Color.web("#00FFFF"),//tanker
-			Color.web("#FF6600"),//shooter
-			Color.web("#FF0099"),//shooter2
-			Color.web("#00FF00"),//eraser
-			Color.web("#0062FF"),//eraser2
-			Color.web("#F2EA02"),//enemy
+			Color.web("#e1fde9"),
+			Color.web("#46d0fe"),//tanker
+			Color.web("#7aff4f"),//shooter
+			Color.web("#61ff91"),//shooter2
+			Color.web("#ff4171"),//eraser
+			Color.web("#f92b2f"),//eraser2
+			Color.web("#ff0049"),//enemy
 			Color.web("#099FFF"),//tracker
-			Color.web("#FF00FF"),//pulsar2
-			Color.web("#9D00FF"),//pulsar
+			Color.web("#00fff8"),//pulsar2
+			Color.web("#1bbee3"),//pulsar
 			
-			Color.web("E6FB04") //warning
+			Color.web("#f6fc2d") //warning
 	};
 	public static Color[] warm = new Color[] {
 			Color.web("#D3C9CE"),
@@ -98,7 +98,34 @@ public class Settings {
 			Color.web("#00C590"),//pulsar
 			Color.web("#65A8C4") //warning
 	};
-	
+	public static Color[] lava = new Color[] {
+			Color.web("#F1B3B3"),
+			Color.web("#A12830"),
+			Color.web("#CA002A"),//tanker
+			Color.web("#FC3D32"),//shooter
+			Color.web("#E26E6E"),//shooter2
+			Color.web("#DB4E4E"),//eraser
+			Color.web("#FFED00"),//eraser2
+			Color.web("#F6465B"),//enemy
+			Color.web("#FF584F"),//tracker
+			Color.web("#F42941"),//pulsar2
+			Color.web("#FF1100"),//pulsar
+			Color.web("#002BC6") //warning
+	};
+	public static Color[] sweet = new Color[] {
+			Color.web("#F2D1BA"),
+			Color.web("#D2082D"),
+			Color.web("#FFB19E"),//tanker
+			Color.web("#D259C2"),//shooter
+			Color.web("#F78BD1"),//shooter2
+			Color.web("#F34093"),//eraser
+			Color.web("#FF7692"),//eraser2
+			Color.web("#CAAB71"),//enemy
+			Color.web("#9FC3E6"),//tracker
+			Color.web("#CAA8E6"),//pulsar2
+			Color.web("#A86FBA"),//pulsar
+			Color.web("#5E2728") //warning
+	};
 	
 	
 }

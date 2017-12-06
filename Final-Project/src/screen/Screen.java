@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -56,7 +57,7 @@ public class Screen {
 		
 		//button text
 		b.setText(text);
-		b.setFont(new Font("Times New Roman", h/3));
+		b.setFont(Font.font("Veranda",FontWeight.BOLD,h/3));
 		
 		//event handling
 		b.setOnMouseClicked(e);

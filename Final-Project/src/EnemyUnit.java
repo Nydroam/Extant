@@ -1,7 +1,18 @@
 import javafx.animation.AnimationTimer;
 
 public class EnemyUnit extends GameUnit{
+	public void setStronger() {
+		maxHP*=1.25;
+		hp = maxHP;
+		speed += 1;
+		
+		color = Settings.eraserColor;
+		shape.setFill(color);
+		if(attackLine!=null)
+			attackLine.setStroke(color);
+	}
 	public void setMoveAnimation(double width, double height) {
+		
 		moveAnim = new AnimationTimer() {
 			public void handle(long now) {
 				

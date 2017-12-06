@@ -12,7 +12,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 	Rotate rotate;
 
 	public Pulsar(double r) {
-		radius = r * 3;
+		radius = r * 2;
 		color = Settings.pulsarColor;
 		shape = new Polygon();
 		((Polygon) shape).getPoints()
@@ -25,7 +25,7 @@ public class Pulsar extends EnemyUnit implements AttackUnit {
 		shape.setFill(color);
 		speed = 2;
 		maxHP = 300;
-		attackRange = new Circle(radius * 3);
+		attackRange = new Circle(radius * 4);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(1);
 		setup();

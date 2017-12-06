@@ -56,7 +56,7 @@ public class Tracker extends EnemyUnit implements AttackUnit {
 					attackLine.setEndY(target.getY());
 					rotate.setAngle(i);
 					if(attackRange.contains(target.getX()-xPos,target.getY()-yPos)) {
-						shape.setFill(color.brighter().brighter());
+						shape.setFill(target.getShape().getFill());
 						i+=3;
 						if(target.isAlive()) {
 							target.decHP(5);
@@ -84,7 +84,7 @@ public class Tracker extends EnemyUnit implements AttackUnit {
 	}
 	
 	public void retarget(UnitHandler unitHandler) {
-		HashSet<GameUnit> enemies = (HashSet<GameUnit>)unitHandler.getSet(UnitHandler.PLAYER).stream().filter(u->u instanceof Shooter).collect(Collectors.toSet());
+		HashSet<GameUnit> enemies = (HashSet<GameUnit>)unitHandler.getSet(UnitHandler.PLAYER);
 		if(!enemies.isEmpty()) {
 			int i = 0;
 			int rand = (int)(Math.random()*enemies.size());

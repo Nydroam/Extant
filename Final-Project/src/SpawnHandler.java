@@ -34,7 +34,7 @@ public class SpawnHandler {
 		waveText.setStroke(Color.TRANSPARENT);
 		screen.addNode(waveText);
 		wave = 0;
-		Settings.numEnemies = 3 * Settings.diff;
+		Settings.numEnemies = Settings.diff*3;
 		warnings = new HashSet<Text>();
 		for(int i = 0; i < Settings.numEnemies; i++) {
 			Text next = new Text("!");
@@ -51,19 +51,19 @@ public class SpawnHandler {
 			int direction = 0;
 			public void handle(long now) {
 				
-				if(i>700-Settings.diff*50&&!gaveWarning) {
+				if(i>400-Settings.diff*100&&!gaveWarning) {
 					direction = (int)(Math.random()*4);
 					giveWarning(direction);
 					gaveWarning = true;
 				}
-				if(i>1000-Settings.diff*50) {
+				if(i>600-Settings.diff*100) {
 					//waveText.setStroke(Color.TRANSPARENT);
 					warnings.stream().forEach(t->t.setFill(Color.TRANSPARENT));
 					spawnUnits(direction);
 					i = 0;
 					gaveWarning = false;
 					wave++;
-					if(wave%5==0) {
+					if(wave%3==0) {
 						Text next = new Text("!");
 						next.setFill(Color.TRANSPARENT);
 						next.setStroke(Color.TRANSPARENT);
@@ -115,24 +115,26 @@ public class SpawnHandler {
 	public void spawnUnits(int direction) {
 		for(int i = 0; i < warnings.size(); i++) {
 			EnemyUnit e = new Enemy(screen.getHeight()/50);
+			
 			double rand = Math.random();
-			double rate = 0.01*Settings.diff*wave;
-			if(rate>0.33)
-				rate = 0.33;
-			if(rand<=rate)
-				e = new Pulsar(screen.getHeight()/50);
-			else if(rand>rate&&rand<rate*2)
-				e = new Tracker(screen.getHeight()/50);
-			//else if(Math.random() <=0.5)
-				//e = new TargetedEnemy(screen.getHeight()/50);
+			for(int j = 0; j < wave/10; j++)
+				if(i==j)
+					e = new Pulsar(screen.getHeight()/50);
+			
+			for(int j = warnings.size()-1; j >= warnings.size()-wave/5; j--)
+				if(i==j)
+					e = new Tracker(screen.getHeight()/50);
+			
+			if(rand<wave/100.0)
+				e.setStronger();
 			if(direction == 0) //left
-				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(Settings.numEnemies+1));
+				e.move(-1*e.getRadius()*2, (i+1)*screen.getHeight()/(warnings.size()+1));
 			if(direction == 1) //right
-				e.move(screen.getWidth(), (i+1)*screen.getHeight()/(Settings.numEnemies+1));
+				e.move(screen.getWidth(), (i+1)*screen.getHeight()/(warnings.size()+1));
 			if(direction == 2) //up
-				e.move((i+1)*screen.getWidth()/(Settings.numEnemies+1), -1*e.getRadius()*2);
+				e.move((i+1)*screen.getWidth()/(warnings.size()+1), -1*e.getRadius()*2);
 			if(direction == 3) //down
-				e.move((i+1)*screen.getWidth()/(Settings.numEnemies+1), screen.getHeight());
+				e.move((i+1)*screen.getWidth()/(warnings.size()+1), screen.getHeight());
 			unitHandler.addUnit(UnitHandler.ENEMY, e);
 			screen.addNode(e.getShape());
 			screen.addNode(e.getAttackLine());

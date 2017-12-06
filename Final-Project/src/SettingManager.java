@@ -32,6 +32,11 @@ public class SettingManager {
 	}
 	
 	public void setAll() {
+		screen.getPane().setBackground(new Background(new BackgroundFill(Settings.backgroundColor, null, null)));
+		screen.getPane().getChildren().stream().filter(n->n instanceof Button).forEach(n->{
+			((Button)n).setTextFill(Settings.backgroundColor);
+			((Button)n).setBackground(new Background(new BackgroundFill(Settings.foregroundColor, null, null)));
+		});
 		Button b = (Button)screen.getPane().getChildren().get(0);
 		screen.getPane().getChildren().clear();
 		screen.getPane().setBackground(new Background(new BackgroundFill(Settings.backgroundColor, null, null)));

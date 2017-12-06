@@ -24,9 +24,10 @@ public class PlayHandler {
 
 		addUnits(PlayerUnit.TANKER);
 		addUnits(PlayerUnit.SHOOTER);
+		
 		Eraser er = new Eraser(screen.getHeight()/20);
 		screen.getScene().setOnKeyReleased(e -> {
-			if (e.getCode() == KeyCode.E) {
+			if (e.getCode() == KeyCode.E && Settings.eraserExists) {
 				er.erase();
 			}
 			if(e.getCode() == KeyCode.ESCAPE) {
@@ -35,7 +36,8 @@ public class PlayHandler {
 				spawn.stopTimer();
 			}
 		});
-		addEraser(er);
+		if(Settings.eraserExists)
+			addEraser(er);
 
 		// setting player unit attacking and moving
 		PlayerAnimationHandler h = new PlayerAnimationHandler(unitHandler, screen);
@@ -75,7 +77,7 @@ public class PlayHandler {
 		u.setAttackAnimation(unitHandler, screen.getPane());
 		u.startAttackAnimation();
 	}
-	public void addUnit(PlayerUnit u, int i, int numUnits, int type) {
+	public  void addUnit(PlayerUnit u, int i, int numUnits, int type) {
 
 		u.move((i + 1) * screen.getWidth() / (numUnits + 1), screen.getHeight() / 3 * (type + 1));
 		unitHandler.addUnit(UnitHandler.PLAYER, u);
