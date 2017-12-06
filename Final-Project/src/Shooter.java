@@ -16,7 +16,7 @@ public class Shooter extends PlayerUnit implements AttackUnit{
 		attackRange = new Circle(radius*6);
 		attackLine = new Line();
 		attackLine.setStrokeWidth(5);
-		maxHP = 1000;
+		maxHP = 750;
 		speed = 4;
 		setup();
 	}

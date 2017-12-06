@@ -1,5 +1,4 @@
 import java.util.HashSet;
-import java.util.stream.Collectors;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;

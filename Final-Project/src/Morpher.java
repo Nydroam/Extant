@@ -26,7 +26,7 @@ public class Morpher extends EnemyUnit implements AttackUnit {
 
 		});
 		shape.setFill(color);
-		speed = 5;
+		speed = 4;
 		maxHP = 1000;
 		attackRange = new Circle(radius * 6);
 		attackRange.setStroke(Settings.foregroundColor);
@@ -49,6 +49,7 @@ rotate = new Rotate();
 		super.move(x, y);
 		attackRange.setLayoutX(xPos);
 		attackRange.setLayoutY(yPos);
+		
 	}
 
 	public void setAttackAnimation(UnitHandler unitHandler, Pane pane) {
@@ -125,6 +126,7 @@ rotate = new Rotate();
 							}
 							retarget(unitHandler);
 						} else {
+							
 							shape.setFill(color);
 						}
 					} else {
@@ -214,7 +216,7 @@ rotate = new Rotate();
 		HashSet<GameUnit> enemies = (HashSet<GameUnit>) unitHandler.getSet(UnitHandler.PLAYER);
 		if(status<shoot) {
 			if(!enemies.isEmpty()) {
-			target = unitHandler.getSet(UnitHandler.PLAYER).stream().
+			target = enemies.stream().
 					min( new Comparator<GameUnit>() {
 				public int compare(GameUnit a, GameUnit b) {
 					double dist1 = Math.sqrt(Math.pow(a.getX()-xPos,2)+Math.pow(a.getY()-yPos, 2));
@@ -230,7 +232,8 @@ rotate = new Rotate();
 				this.stopMoveAnimation();
 				this.stopAttackAnimation();
 				
-			}}
+			}
+			}
 		else {
 		if (!enemies.isEmpty()) {
 			int i = 0;
