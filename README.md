@@ -1,6 +1,10 @@
 # Final-Project
 Final Project for CSE 260. A minimalist RTS game.
 
+## Installation
+Requires Java 8 to play.
+Download run.jar from this repo and run it to play.
+
 ### Controls
 Click or click and drag to select units.
 WASD to move selected units.
