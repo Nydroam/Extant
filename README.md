@@ -1,5 +1,5 @@
-# Final-Project
-Final Project for CSE 260. A minimalist RTS game.
+# Extant
+Final Project for CSE 260 Computer Science B: Honors. A minimalist RTS game.
 
 ## Installation
 Requires Java 8 to play.
