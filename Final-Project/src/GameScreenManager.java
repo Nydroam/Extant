@@ -20,7 +20,7 @@ public class GameScreenManager extends ScreenManager {
 	}
 	public Screen setMenu() {
 		Screen s = super.setMenu();
-		String title = ":screen:";
+		String title = "Extant";
 		s.addText(0,height/3,width,height/6,true,title, Settings.foregroundColor);
 		colorButtons(s);
 		return s;
